@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: AI Resume Platform - S3 (public, versioned) + DynamoDB tables
+
+Parameters:
+  BucketName:
+    Type: String
+    Description: Globally unique S3 bucket name for resume hosting
+
+Resources:
+  ResumeSiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+      VersioningConfiguration:
+        Status: Enabled
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: false
+        RestrictPublicBuckets: false
+
+  ResumeSiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref ResumeSiteBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: PublicRead
+            Effect: Allow
+            Principal: "*"
+            Action: s3:GetObject
+            Resource: !Sub "${ResumeSiteBucket.Arn}/*"
+
+  DeploymentTrackingTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: DeploymentTracking
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: deployment_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: deployment_id
+          KeyType: HASH
+
+  ResumeAnalyticsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ResumeAnalytics
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: analysis_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: analysis_id
+          KeyType: HASH
+
+Outputs:
+  BucketNameOut:
+    Value: !Ref ResumeSiteBucket
+
+  DeploymentTrackingTableName:
+    Value: !Ref DeploymentTrackingTable
+
+  ResumeAnalyticsTableName:
+    Value: !Ref ResumeAnalyticsTable
