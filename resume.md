@@ -59,10 +59,10 @@ Use Case: Automate voice-to-voice translation for multilingual audio content.
 ### Two-Tier Web Architecture on AWS | EC2 + RDS + VPC  
 Use Case: Deploy a secure and scalable content management website.
 
--Designed and deployed a custom Amazon VPC with public and private subnets, routing tables, and an Internet Gateway
--Provisioned an Ubuntu-based EC2 instance for the web tier and a MySQL-backed Amazon RDS instance for the database tier
--Implemented network isolation and security controls using security groups and subnet segmentation (EC2 in public, RDS in private)
--Validated application connectivity and documented the benefits of a two-tier architecture
+- Designed and deployed a custom Amazon VPC with public and private subnets, routing tables, and an Internet Gateway
+- Provisioned an Ubuntu-based EC2 instance for the web tier and a MySQL-backed Amazon RDS instance for the database tier
+- Implemented network isolation and security controls using security groups and subnet segmentation (EC2 in public, RDS in private)
+- Validated application connectivity and documented the benefits of a two-tier architecture
 
 ### EC2 Shutdown Automation | AWS Lambda + GitHub Actions + CloudFormation  
 Use Case: Reduce unnecessary EC2 runtime costs for non-production environments.
