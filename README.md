@@ -73,3 +73,69 @@ This project treats resume publishing as an engineering workflow:
 │       └── deploy.yml            # CI/CD workflow (beta + prod jobs)
 ├── resume.md                     # source-of-truth resume content
 └── validation-screenshots/       # evidence screenshots (tracked)
+
+## Configuration
+### GitHub Secrets
+
+Required repository secrets:
+
+- AWS_ACCESS_KEY_ID
+
+- AWS_SECRET_ACCESS_KEY
+
+- AWS_REGION
+
+### Runtime Environment Variables
+
+Provided by the workflow:
+
+- BUCKET_NAME
+
+- DEPLOYMENT_TABLE
+
+- ANALYTICS_TABLE
+
+- ENV (beta | prod)
+
+- COMMIT_SHA
+
+- MODEL_ID
+
+## Bedrock Throttling & Fallback Design
+
+AI invocation may be throttled due to account or regional limits.
+This pipeline remains fully functional under those conditions by:
+
+- Falling back to deterministic resume rendering
+
+- Falling back to deterministic ATS analysis
+
+- Preserving deployment history and analytics integrity
+
+- Keeping CI/CD pipelines green and auditable
+
+This mirrors real production resilience patterns used in platform engineering.
+
+## What This Project Demonstrates
+
+- Production-grade CI/CD with environment isolation
+
+- Infrastructure as Code using CloudFormation
+
+- Automated artifact publishing to S3
+
+- Deployment and analytics persistence in DynamoDB
+
+- Resilient pipeline design under third-party service constraints
+
+- Clear separation between application logic and infrastructure
+
+## Optional Enhancements
+
+- CloudFront + Route 53 + ACM for custom domain and HTTPS
+
+- Origin Access Control (OAC) with private S3
+
+- Automated PR comments with beta URL and ATS delta
+
+- Cost metrics and trend analysis in DynamoDB
