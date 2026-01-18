@@ -1,338 +1,522 @@
 #!/usr/bin/env python3
 """
-app/resume_pipeline.py
+AI Resume Platform Pipeline (Bedrock-first with deterministic fallback)
 
-Responsibilities (in order):
-1) Read resume.md
-2) AI Call #1 -> HTML (ATS optimized)
-3) AI Call #2 -> ATS analysis JSON (strict schema)
-4) Upload HTML to s3://<BUCKET_NAME>/<ENV>/index.html
-5) Write DynamoDB records:
-   - DeploymentTracking
-   - ResumeAnalytics
+Responsibilities (beta deploy):
+- Read resume.md
+- Attempt Bedrock AI Call #1: resume.md -> ATS-friendly HTML
+- Attempt Bedrock AI Call #2: resume.md -> ATS analytics JSON (strict schema)
+- If Bedrock throttles (tokens/day or throttling), fall back to:
+    - deterministic markdown->html
+    - deterministic ATS analytics
+- Upload HTML to S3: s3://<bucket>/<env>/index.html
+- Write DynamoDB records:
+    - DeploymentTracking
+    - ResumeAnalytics
+
+Environment variables (set by GitHub Actions job env):
+- AWS_REGION              (required)  : region for S3 + DynamoDB
+- BEDROCK_REGION          (optional)  : region for Bedrock; defaults to AWS_REGION
+- BUCKET_NAME             (required)
+- DEPLOYMENT_TABLE        (required)  : DeploymentTracking
+- ANALYTICS_TABLE         (required)  : ResumeAnalytics
+- ENV                     (required)  : beta (or prod later)
+- COMMIT_SHA              (required)
+- MODEL_ID                (required)  : bedrock model ID
 """
-
-from __future__ import annotations
 
 import json
 import os
 import re
 import sys
+import time
 import uuid
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional
 
 import boto3
+from botocore.exceptions import ClientError
 
 
-# -----------------------------
-# Config + Guardrails
-# -----------------------------
-
-REQUIRED_ENV_VARS = [
-    "AWS_REGION",
-    "BUCKET_NAME",
-    "DEPLOYMENT_TABLE",
-    "ANALYTICS_TABLE",
-    "ENV",          # beta | prod
-    "COMMIT_SHA",
-    "MODEL_ID",     # Bedrock model id, e.g. anthropic.claude-3-5-sonnet-20240620-v1:0
-]
+# ----------------------------
+# Strict schema for analytics
+# ----------------------------
+REQUIRED_ANALYTICS_KEYS = {
+    "word_count": int,
+    "ats_score": int,
+    "keywords": list,
+    "readability": str,
+    "missing_sections": list,
+}
 
 
-def fail(msg: str) -> None:
-    print(f"ERROR: {msg}", file=sys.stderr)
-    sys.exit(1)
-
-
-def require_env() -> Dict[str, str]:
-    missing = [k for k in REQUIRED_ENV_VARS if not os.getenv(k)]
-    if missing:
-        fail(f"Missing required environment variables: {', '.join(missing)}")
-    env = {k: os.environ[k] for k in REQUIRED_ENV_VARS}
-    if env["ENV"] not in ("beta", "prod"):
-        fail("ENV must be 'beta' or 'prod'")
-    return env
-
-
-def utc_now_iso() -> str:
+# ----------------------------
+# Helpers
+# ----------------------------
+def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-def read_resume_md(path: str = "resume.md") -> str:
-    if not os.path.exists(path):
-        fail(f"resume.md not found at path: {path}")
+def require_env(name: str) -> str:
+    v = os.getenv(name)
+    if not v:
+        raise RuntimeError(f"Missing required environment variable: {name}")
+    return v
+
+
+def clamp_text(s: str, max_chars: int = 12000) -> str:
+    s = (s or "").strip()
+    return s[:max_chars]
+
+
+def read_text_file(path: str) -> str:
     with open(path, "r", encoding="utf-8") as f:
-        content = f.read().strip()
-    if len(content) < 50:
-        fail("resume.md content is unexpectedly short; aborting.")
-    return content
+        return f.read()
 
 
-# -----------------------------
-# Bedrock InvokeModel helpers
-# -----------------------------
-
-def bedrock_invoke_text(model_id: str, region: str, prompt: str, max_tokens: int = 2500) -> str:
+def md_to_basic_html(md: str) -> str:
     """
-    Calls Bedrock Runtime InvokeModel. Payload format varies by model provider.
-    This implementation supports Anthropic Claude models (recommended).
+    Deterministic HTML rendering (ATS-friendly, no dependencies).
     """
-    client = boto3.client("bedrock-runtime", region_name=region)
+    lines = [ln.rstrip() for ln in md.splitlines()]
 
-    # Anthropic Claude messages format
-    body = {
-        "anthropic_version": "bedrock-2023-05-31",
-        "max_tokens": max_tokens,
-        "temperature": 0.2,
-        "messages": [
-            {"role": "user", "content": prompt}
-        ],
-    }
+    html_parts: List[str] = []
+    in_ul = False
 
-    resp = client.invoke_model(
-        modelId=model_id,
-        accept="application/json",
-        contentType="application/json",
-        body=json.dumps(body).encode("utf-8"),
+    def close_ul():
+        nonlocal in_ul
+        if in_ul:
+            html_parts.append("</ul>")
+            in_ul = False
+
+    for ln in lines:
+        if not ln.strip():
+            continue
+
+        if ln.startswith("# "):
+            close_ul()
+            html_parts.append(f"<h1>{escape_html(ln[2:].strip())}</h1>")
+        elif ln.startswith("## "):
+            close_ul()
+            html_parts.append(f"<h2>{escape_html(ln[3:].strip())}</h2>")
+        elif ln.startswith("### "):
+            close_ul()
+            html_parts.append(f"<h3>{escape_html(ln[4:].strip())}</h3>")
+        elif ln.startswith("- "):
+            if not in_ul:
+                html_parts.append("<ul>")
+                in_ul = True
+            html_parts.append(f"<li>{escape_html(ln[2:].strip())}</li>")
+        else:
+            close_ul()
+            html_parts.append(f"<p>{escape_html(ln.strip())}</p>")
+
+    close_ul()
+
+    css = """
+    body { font-family: Arial, sans-serif; margin: 28px; color: #111; }
+    main { max-width: 900px; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    h2 { margin: 18px 0 6px; font-size: 18px; }
+    h3 { margin: 12px 0 6px; font-size: 14px; }
+    p, li { line-height: 1.45; margin: 4px 0; font-size: 13px; }
+    ul { margin: 6px 0 12px 20px; padding: 0; }
+    """
+    return (
+        "<!doctype html><html><head><meta charset='utf-8'>"
+        f"<meta name='viewport' content='width=device-width, initial-scale=1'>"
+        f"<title>Resume</title><style>{css}</style></head>"
+        f"<body><main>{''.join(html_parts)}</main></body></html>"
     )
 
-    raw = resp["body"].read()
-    data = json.loads(raw)
 
-    # Claude returns content as a list of blocks: [{"type":"text","text":"..."}]
-    blocks = data.get("content", [])
-    if not blocks or "text" not in blocks[0]:
-        fail(f"Unexpected Bedrock response shape: {data}")
-    return blocks[0]["text"]
-
-
-# -----------------------------
-# Prompts
-# -----------------------------
-
-def build_html_prompt(resume_md: str) -> str:
-    return f"""You are generating an ATS-optimized, professional resume website as a SINGLE HTML document.
-
-Requirements:
-- Output ONLY valid HTML (no markdown, no code fences, no commentary).
-- Use semantic HTML: <header>, <main>, <section>, <h1>-<h3>, <ul>, <li>.
-- Keep styling minimal and ATS-friendly: inline CSS only, simple fonts, high contrast.
-- Do NOT include external JS/CSS, trackers, or images.
-- Ensure sections map cleanly from the resume: Summary, Skills, Projects, Experience, Education, Certifications.
-- If a section is missing in the input, omit it.
-- Preserve all user-provided facts; do not invent new experience.
-
-Input resume markdown:
-{resume_md}
-"""
+def escape_html(s: str) -> str:
+    return (
+        s.replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+        .replace("'", "&#39;")
+    )
 
 
-def build_ats_json_prompt(resume_md: str) -> str:
-    return f"""Analyze the resume markdown for ATS readiness and output STRICT JSON ONLY.
+def basic_ats_analysis(md: str) -> Dict[str, Any]:
+    """
+    Deterministic, rubric-aligned analytics payload for fallback.
+    """
+    words = re.findall(r"\b\w+\b", md)
+    word_count = len(words)
 
-Return a JSON object with EXACTLY these keys:
-- word_count: integer
-- ats_score: integer (0-100)
-- keywords: array of strings (most important ATS keywords found; 5-20 items)
-- readability: string (one of: "Excellent", "Good", "Fair", "Poor")
-- missing_sections: array of strings (any of: "Summary","Skills","Projects","Experience","Education","Certifications")
+    def has_section(name: str) -> bool:
+        return bool(re.search(rf"(?im)^##\s+{re.escape(name)}\b", md))
 
-Rules:
-- Output ONLY JSON (no markdown fences, no extra text).
-- Do not include trailing commas.
-- Do not include additional keys.
+    sections = {
+        "Summary": has_section("Summary"),
+        "Skills": has_section("Skills"),
+        "Projects": has_section("Projects"),
+        "Experience": has_section("Experience"),
+        "Education": has_section("Education"),
+        "Certifications": bool(re.search(r"(?im)^##\s+Certifications?\b", md)),
+    }
+    missing_sections = [k for k, v in sections.items() if not v]
 
-Resume markdown:
-{resume_md}
-"""
+    # Simple ATS score heuristic (0-100). Good enough for fallback.
+    score = 60
+    if word_count >= 350:
+        score += 10
+    else:
+        score -= 5
+
+    score += 10 if sections["Skills"] else -10
+    score += 10 if sections["Experience"] else -10
+    score += 5 if sections["Projects"] else -5
+    score -= min(15, 3 * len(missing_sections))
+    score = max(0, min(100, score))
+
+    # Keyword extraction (top unique words length>=4)
+    freq: Dict[str, int] = {}
+    for w in words:
+        w2 = w.lower()
+        if len(w2) < 4:
+            continue
+        freq[w2] = freq.get(w2, 0) + 1
+    keywords = sorted(freq.keys(), key=lambda k: freq[k], reverse=True)[:15]
+
+    readability = "Good" if word_count >= 350 else "Fair"
+
+    return {
+        "word_count": int(word_count),
+        "ats_score": int(score),
+        "keywords": keywords,
+        "readability": readability,
+        "missing_sections": missing_sections,
+    }
 
 
-# -----------------------------
-# Output validation
-# -----------------------------
-
-def sanitize_html(html: str) -> str:
-    # Basic guardrail: ensure it's HTML-ish and not wrapped in code fences.
-    html = html.strip()
-    html = re.sub(r"^```html\s*", "", html, flags=re.IGNORECASE)
-    html = re.sub(r"^```\s*", "", html)
-    html = re.sub(r"\s*```$", "", html)
-    if "<html" not in html.lower():
-        # Accept if it’s a fragment but still HTML.
-        if not any(tag in html.lower() for tag in ("<section", "<h1", "<main", "<header")):
-            fail("HTML output does not appear to be valid HTML.")
-        # Wrap fragment
-        html = f"<!doctype html><html><head><meta charset='utf-8'></head><body>{html}</body></html>"
-    return html
-
-
-def validate_ats_json(raw_text: str) -> Dict[str, Any]:
-    text = raw_text.strip()
-    # Remove accidental code fences
-    text = re.sub(r"^```json\s*", "", text, flags=re.IGNORECASE)
-    text = re.sub(r"^```\s*", "", text)
-    text = re.sub(r"\s*```$", "", text)
-
-    try:
-        obj = json.loads(text)
-    except json.JSONDecodeError as e:
-        fail(f"ATS JSON output is not valid JSON: {e}\nRaw:\n{text[:500]}")
-
-    required_keys = ["word_count", "ats_score", "keywords", "readability", "missing_sections"]
-    if sorted(obj.keys()) != sorted(required_keys):
-        fail(f"ATS JSON keys must be exactly {required_keys}. Got: {list(obj.keys())}")
-
-    # Type checks
-    if not isinstance(obj["word_count"], int):
-        fail("ATS JSON word_count must be an integer.")
-    if not isinstance(obj["ats_score"], int):
-        fail("ATS JSON ats_score must be an integer.")
-    if not (0 <= obj["ats_score"] <= 100):
-        fail("ATS JSON ats_score must be between 0 and 100.")
-    if not isinstance(obj["keywords"], list) or not all(isinstance(k, str) for k in obj["keywords"]):
-        fail("ATS JSON keywords must be an array of strings.")
-    if not isinstance(obj["missing_sections"], list) or not all(isinstance(s, str) for s in obj["missing_sections"]):
-        fail("ATS JSON missing_sections must be an array of strings.")
-    if obj["readability"] not in ("Excellent", "Good", "Fair", "Poor"):
-        fail('ATS JSON readability must be one of: "Excellent","Good","Fair","Poor"')
-
+def validate_analytics(obj: Dict[str, Any]) -> Dict[str, Any]:
+    for k, t in REQUIRED_ANALYTICS_KEYS.items():
+        if k not in obj:
+            raise ValueError(f"Analytics missing required key: {k}")
+        if not isinstance(obj[k], t):
+            raise ValueError(f"Analytics key '{k}' expected type {t.__name__}")
+    # normalize keyword items
+    obj["keywords"] = [str(x) for x in obj["keywords"]][:50]
+    obj["missing_sections"] = [str(x) for x in obj["missing_sections"]][:50]
+    obj["word_count"] = int(obj["word_count"])
+    obj["ats_score"] = int(max(0, min(100, obj["ats_score"])))
+    obj["readability"] = str(obj["readability"])[:40]
     return obj
 
 
-# -----------------------------
-# AWS writes: S3 + DynamoDB
-# -----------------------------
+# ----------------------------
+# Bedrock invocation (Bedrock-first)
+# ----------------------------
+def bedrock_invoke_text(
+    *,
+    bedrock_region: str,
+    model_id: str,
+    prompt: str,
+    max_tokens: int,
+    temperature: float = 0.2,
+    retries: int = 1,
+    backoff_seconds: float = 2.0,
+) -> str:
+    """
+    Calls bedrock-runtime InvokeModel. Includes minimal retry/backoff (we avoid aggressive retries to reduce throttling).
+    """
+    client = boto3.client("bedrock-runtime", region_name=bedrock_region)
 
-def upload_html_to_s3(bucket: str, env: str, html: str, region: str) -> str:
+    # Bedrock request format varies by provider. This payload works for Anthropic Claude in Bedrock.
+    body = {
+        "anthropic_version": "bedrock-2023-05-31",
+        "max_tokens": max_tokens,
+        "temperature": temperature,
+        "messages": [{"role": "user", "content": prompt}],
+    }
+
+    last_err: Optional[Exception] = None
+    for attempt in range(retries + 1):
+        try:
+            resp = client.invoke_model(
+                modelId=model_id,
+                body=json.dumps(body).encode("utf-8"),
+                accept="application/json",
+                contentType="application/json",
+            )
+            raw = resp["body"].read().decode("utf-8")
+            data = json.loads(raw)
+
+            # Anthropic response shape:
+            # { "content": [ { "type": "text", "text": "..." } ], ... }
+            content = data.get("content", [])
+            texts = []
+            for item in content:
+                if isinstance(item, dict) and item.get("type") == "text":
+                    texts.append(item.get("text", ""))
+            return "\n".join(texts).strip()
+
+        except Exception as e:
+            last_err = e
+            if attempt < retries:
+                time.sleep(backoff_seconds * (attempt + 1))
+                continue
+            break
+
+    raise last_err if last_err else RuntimeError("Unknown Bedrock error")
+
+
+def is_throttling_error(e: Exception) -> bool:
+    msg = str(e)
+    if "ThrottlingException" in msg:
+        return True
+    if "Too many tokens per day" in msg:
+        return True
+    # ClientError sometimes contains structured code
+    if isinstance(e, ClientError):
+        code = e.response.get("Error", {}).get("Code", "")
+        if code in {"ThrottlingException", "TooManyRequestsException"}:
+            return True
+    return False
+
+
+# ----------------------------
+# Prompts (keep tight to reduce tokens)
+# ----------------------------
+def build_html_prompt(resume_md: str) -> str:
+    return (
+        "Convert the following resume in Markdown into clean, ATS-friendly HTML.\n"
+        "Requirements:\n"
+        "- Use semantic HTML tags (h1/h2/h3, p, ul/li).\n"
+        "- Do NOT include Markdown code fences.\n"
+        "- Keep styling minimal (no external assets).\n"
+        "- Output ONLY HTML.\n\n"
+        f"RESUME_MARKDOWN:\n{resume_md}\n"
+    )
+
+
+def build_ats_json_prompt(resume_md: str) -> str:
+    schema = {
+        "word_count": 0,
+        "ats_score": 0,
+        "keywords": ["string"],
+        "readability": "Good|Fair|Poor",
+        "missing_sections": ["string"],
+    }
+    return (
+        "Analyze the resume below for ATS readiness.\n"
+        "Return STRICT JSON only (no markdown, no commentary).\n"
+        "Schema keys must match exactly:\n"
+        f"{json.dumps(schema)}\n\n"
+        "Guidance:\n"
+        "- ats_score must be 0-100 integer\n"
+        "- keywords: 10-20 items\n"
+        "- missing_sections: list any missing standard sections\n\n"
+        f"RESUME_MARKDOWN:\n{resume_md}\n"
+    )
+
+
+def sanitize_html(html: str) -> str:
+    # Hard clamp and strip any accidental code fences
+    html = html.strip()
+    html = re.sub(r"^```(?:html)?\s*", "", html, flags=re.IGNORECASE)
+    html = re.sub(r"\s*```$", "", html)
+    return clamp_text(html, max_chars=120000)
+
+
+def extract_json(text: str) -> Dict[str, Any]:
+    """
+    Extract first JSON object from a string (AI sometimes wraps output).
+    """
+    text = text.strip()
+    # direct json
+    try:
+        return json.loads(text)
+    except Exception:
+        pass
+
+    # find first {...}
+    m = re.search(r"\{.*\}", text, flags=re.DOTALL)
+    if not m:
+        raise ValueError("No JSON object found in AI output")
+    return json.loads(m.group(0))
+
+
+# ----------------------------
+# AWS writes: S3 + DynamoDB
+# ----------------------------
+def upload_html_to_s3(region: str, bucket: str, env: str, html: str) -> str:
     s3 = boto3.client("s3", region_name=region)
     key = f"{env}/index.html"
     s3.put_object(
         Bucket=bucket,
         Key=key,
         Body=html.encode("utf-8"),
-        ContentType="text/html; charset=utf-8",
+        ContentType="text/html",
         CacheControl="no-cache",
     )
-    # Public bucket, so URL is predictable:
     return f"https://{bucket}.s3.amazonaws.com/{key}"
 
 
-def write_deployment_tracking(
-    table_name: str,
+def put_deployment_tracking(
     region: str,
+    table_name: str,
+    deployment_id: str,
     commit_sha: str,
     env: str,
     status: str,
     s3_url: str,
-    model_id: str,
-) -> str:
-    ddb = boto3.resource("dynamodb", region_name=region)
-    table = ddb.Table(table_name)
-
-    deployment_id = str(uuid.uuid4())
-    item = {
-        "deployment_id": deployment_id,
-        "commit_sha": commit_sha,
-        "environment": env,
-        "status": status,
-        "s3_url": s3_url,
-        "model_used": model_id,
-        "timestamp": utc_now_iso(),
-    }
-    table.put_item(Item=item)
-    return deployment_id
+    model_used: str,
+) -> None:
+    ddb = boto3.resource("dynamodb", region_name=region).Table(table_name)
+    ddb.put_item(
+        Item={
+            "deployment_id": deployment_id,
+            "commit_sha": commit_sha,
+            "environment": env,
+            "status": status,
+            "s3_url": s3_url,
+            "model_used": model_used,
+            "timestamp": now_iso(),
+        }
+    )
 
 
-def write_resume_analytics(
-    table_name: str,
+def put_resume_analytics(
     region: str,
+    table_name: str,
+    analytics_id: str,
     commit_sha: str,
     env: str,
+    model_used: str,
     analytics: Dict[str, Any],
-    model_id: str,
-) -> str:
-    ddb = boto3.resource("dynamodb", region_name=region)
-    table = ddb.Table(table_name)
-
-    analysis_id = str(uuid.uuid4())
-    item = {
-        "analysis_id": analysis_id,
-        "commit_sha": commit_sha,
-        "environment": env,
-        "model_used": model_id,
-        "timestamp": utc_now_iso(),
-        "word_count": analytics["word_count"],
-        "ats_score": analytics["ats_score"],
-        "readability": analytics["readability"],
-        "keywords": analytics["keywords"],
-        "missing_sections": analytics["missing_sections"],
-    }
-    table.put_item(Item=item)
-    return analysis_id
+) -> None:
+    ddb = boto3.resource("dynamodb", region_name=region).Table(table_name)
+    ddb.put_item(
+        Item={
+            "analytics_id": analytics_id,
+            "commit_sha": commit_sha,
+            "environment": env,
+            "model_used": model_used,
+            "timestamp": now_iso(),
+            # analytics fields
+            "word_count": analytics["word_count"],
+            "ats_score": analytics["ats_score"],
+            "keywords": analytics["keywords"],
+            "readability": analytics["readability"],
+            "missing_sections": analytics["missing_sections"],
+        }
+    )
 
 
-# -----------------------------
+# ----------------------------
 # Main
-# -----------------------------
+# ----------------------------
+def main() -> int:
+    region = require_env("AWS_REGION")
+    bedrock_region = os.getenv("BEDROCK_REGION", region)
 
-def main() -> None:
-    cfg = require_env()
+    bucket = require_env("BUCKET_NAME")
+    deployment_table = require_env("DEPLOYMENT_TABLE")
+    analytics_table = require_env("ANALYTICS_TABLE")
 
-    region = cfg["AWS_REGION"]
-    bucket = cfg["BUCKET_NAME"]
-    deployment_table = cfg["DEPLOYMENT_TABLE"]
-    analytics_table = cfg["ANALYTICS_TABLE"]
-    env = cfg["ENV"]
-    commit_sha = cfg["COMMIT_SHA"]
-    model_id = cfg["MODEL_ID"]
+    env = require_env("ENV")  # beta
+    commit_sha = require_env("COMMIT_SHA")
+    model_id = require_env("MODEL_ID")
 
-    resume_md = read_resume_md("resume.md")
+    # Read resume (clamped)
+    resume_md = clamp_text(read_text_file("resume.md"), max_chars=12000)
 
-    # AI Call #1 -> HTML
-    html_prompt = build_html_prompt(resume_md)
-    html_raw = bedrock_invoke_text(model_id=model_id, region=region, prompt=html_prompt, max_tokens=3000)
-    html = sanitize_html(html_raw)
+    deployment_id = str(uuid.uuid4())
+    analytics_id = str(uuid.uuid4())
 
-    # AI Call #2 -> ATS JSON
-    json_prompt = build_ats_json_prompt(resume_md)
-    ats_raw = bedrock_invoke_text(model_id=model_id, region=region, prompt=json_prompt, max_tokens=1200)
-    ats = validate_ats_json(ats_raw)
+    used_model = model_id
+    used_fallback = False
 
-    # Upload to S3
-    s3_url = upload_html_to_s3(bucket=bucket, env=env, html=html, region=region)
+    # Bedrock-first
+    try:
+        html_prompt = build_html_prompt(resume_md)
+        html_raw = bedrock_invoke_text(
+            bedrock_region=bedrock_region,
+            model_id=model_id,
+            prompt=html_prompt,
+            max_tokens=700,  # keep low to reduce throttling
+            temperature=0.2,
+            retries=1,       # avoid aggressive retries
+            backoff_seconds=2.0,
+        )
+        html = sanitize_html(html_raw)
+
+        json_prompt = build_ats_json_prompt(resume_md)
+        ats_raw = bedrock_invoke_text(
+            bedrock_region=bedrock_region,
+            model_id=model_id,
+            prompt=json_prompt,
+            max_tokens=350,  # keep low
+            temperature=0.1,
+            retries=1,
+            backoff_seconds=2.0,
+        )
+        ats_obj = extract_json(ats_raw)
+        ats = validate_analytics(ats_obj)
+
+    except Exception as e:
+        if is_throttling_error(e):
+            print(
+                "WARN: Bedrock throttled (tokens/day or throttling). "
+                "Falling back to deterministic rendering/analytics.",
+                file=sys.stderr,
+            )
+            used_model = "fallback-deterministic"
+            used_fallback = True
+            html = md_to_basic_html(resume_md)
+            ats = validate_analytics(basic_ats_analysis(resume_md))
+        else:
+            raise
+
+    # Upload HTML to S3
+    s3_url = upload_html_to_s3(region=region, bucket=bucket, env=env, html=html)
 
     # Write DynamoDB records
-    deployment_id = write_deployment_tracking(
-        table_name=deployment_table,
+    put_deployment_tracking(
         region=region,
+        table_name=deployment_table,
+        deployment_id=deployment_id,
         commit_sha=commit_sha,
         env=env,
         status="success",
         s3_url=s3_url,
-        model_id=model_id,
+        model_used=used_model,
     )
 
-    analysis_id = write_resume_analytics(
-        table_name=analytics_table,
+    put_resume_analytics(
         region=region,
+        table_name=analytics_table,
+        analytics_id=analytics_id,
         commit_sha=commit_sha,
         env=env,
+        model_used=used_model,
         analytics=ats,
-        model_id=model_id,
     )
 
-    # CI-friendly summary
-    print(json.dumps({
-        "status": "ok",
-        "env": env,
-        "commit_sha": commit_sha,
-        "s3_url": s3_url,
-        "deployment_id": deployment_id,
-        "analysis_id": analysis_id,
-        "ats_score": ats["ats_score"],
-    }, indent=2))
+    # Print summary for Actions logs
+    print(
+        json.dumps(
+            {
+                "status": "ok",
+                "environment": env,
+                "commit_sha": commit_sha,
+                "s3_url": s3_url,
+                "deployment_id": deployment_id,
+                "analytics_id": analytics_id,
+                "model_used": used_model,
+                "used_fallback": used_fallback,
+                "bedrock_region": bedrock_region,
+            },
+            indent=2,
+        )
+    )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
