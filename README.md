@@ -73,6 +73,7 @@ This project treats resume publishing as an engineering workflow:
 │       └── deploy.yml            # CI/CD workflow (beta + prod jobs)
 ├── resume.md                     # source-of-truth resume content
 └── validation-screenshots/       # evidence screenshots (tracked)
+```
 
 ## Configuration
 ### GitHub Secrets
