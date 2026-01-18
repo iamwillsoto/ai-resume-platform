@@ -39,7 +39,7 @@ Python (boto3 for AWS automation), Bash, PowerShell
 ## PROJECTS
 
 ### Prompt Deployment Pipeline | Amazon Bedrock + S3 + GitHub Actions  
-**Use Case: Automate AI-powered content creation and publishing for static websites.**
+Use Case: Automate AI-powered content creation and publishing for static websites.
   
 - Designed and implemented a GitHub-based CI/CD pipeline to process prompt templates and configuration files and automatically generate publishable content
 - Developed a Python automation workflow (process_prompt.py) to render prompt templates with environment-specific variables and submit structured requests to Amazon Bedrock
@@ -48,7 +48,7 @@ Python (boto3 for AWS automation), Bash, PowerShell
 - Managed pipeline execution through pull requests and branch merges, with secrets and credentials securely handled via GitHub Actions
 
 ### Multilingual Audio Pipeline | Amazon Transcribe + Translate + Polly + S3 + GitHub Actions  
-**Use Case: Automate voice-to-voice translation for multilingual audio content.**
+Use Case: Automate voice-to-voice translation for multilingual audio content.
 
 - Built an end-to-end, automated audio processing pipeline using AWS managed AI services and Python
 - Developed a Python workflow (process_audio.py) to upload audio files to Amazon S3, transcribe speech with Amazon Transcribe, translate text using Amazon Translate, and synthesize multilingual speech with Amazon Polly
@@ -57,7 +57,7 @@ Python (boto3 for AWS automation), Bash, PowerShell
 - Secured AWS credentials and environment-specific configuration using GitHub Secrets 
 
 ### Two-Tier Web Architecture on AWS | EC2 + RDS + VPC  
-**Use Case: Deploy a secure and scalable content management website.**
+Use Case: Deploy a secure and scalable content management website.
 
 -Designed and deployed a custom Amazon VPC with public and private subnets, routing tables, and an Internet Gateway
 -Provisioned an Ubuntu-based EC2 instance for the web tier and a MySQL-backed Amazon RDS instance for the database tier
@@ -65,7 +65,7 @@ Python (boto3 for AWS automation), Bash, PowerShell
 -Validated application connectivity and documented the benefits of a two-tier architecture
 
 ### EC2 Shutdown Automation | AWS Lambda + GitHub Actions + CloudFormation  
-**Use Case: Reduce unnecessary EC2 runtime costs for non-production environments.**
+Use Case: Reduce unnecessary EC2 runtime costs for non-production environments.
 
 - Developed a Python-based AWS Lambda function using boto3 to identify and stop EC2 instances based on state and tags
 - Scheduled automated shutdowns using Amazon EventBridge to enforce cost-control policies
@@ -78,22 +78,20 @@ Python (boto3 for AWS automation), Bash, PowerShell
 ## EXPERIENCE
 
 ### Client Solutions Specialist / Enterprise Engagement  
-**Confidential Healthcare Technology Organization — Remote**  
-**December 2024 – Present**
+Confidential Healthcare Technology Organization — Remote
+December 2024 – Present
 
 - Operate in a high-accountability, metrics-driven environment requiring disciplined execution, prioritization, and consistent delivery under pressure  
 - Collaborate with cross-functional stakeholders to translate business requirements into structured workflows, operational processes, and measurable outcomes  
 - Maintain rigorous documentation standards, process hygiene, and handoff practices to support reliability and continuity across teams  
 - Communicate complex technical and operational concepts clearly to leadership, partners, and non-technical stakeholders
 
-
 ---
 
 ## EDUCATION
 
-**Bachelor of Science, Cloud Computing**  
-Western Governors University, Salt Lake City, UT
-Expected Completion: June 2026
+Bachelor of Science, Cloud Computing  
+Western Governors University, Salt Lake City, UT - Expected Completion: June 2026
 
 ---
 
