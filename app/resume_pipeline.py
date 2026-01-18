@@ -393,7 +393,7 @@ def put_resume_analytics(
     ddb = boto3.resource("dynamodb", region_name=region).Table(table_name)
     ddb.put_item(
         Item={
-            "analytics_id": analytics_id,
+            "analysis_id": analytics_id,
             "commit_sha": commit_sha,
             "environment": env,
             "model_used": model_used,
@@ -507,7 +507,7 @@ def main() -> int:
                 "commit_sha": commit_sha,
                 "s3_url": s3_url,
                 "deployment_id": deployment_id,
-                "analytics_id": analytics_id,
+                "analysis_id": analytics_id,
                 "model_used": used_model,
                 "used_fallback": used_fallback,
                 "bedrock_region": bedrock_region,
