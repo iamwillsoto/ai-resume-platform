@@ -17,8 +17,8 @@ Cloud DevOps Engineer designing and operating secure, scalable cloud platforms a
 ## Skills
 
 ### Cloud Platforms
-**AWS:** VPC, EC2, S3, IAM, Lambda, EventBridge, RDS, CloudWatch  
-**Azure:** Entra ID, Virtual Networks, Virtual Machines, Storage Accounts, Azure Monitor  
+AWS: VPC, EC2, S3, IAM, Lambda, EventBridge, RDS, CloudWatch  
+Azure: Entra ID, Virtual Networks, Virtual Machines, Storage Accounts, Azure Monitor  
 
 ### Infrastructure as Code
 Terraform · AWS CloudFormation · Azure Bicep  
@@ -40,7 +40,7 @@ Python (cloud automation) · Bash · PowerShell
 ## Selected Systems & Architecture
 
 ### AI Deployment Pipeline  
-**Amazon Bedrock · Azure-compatible architecture patterns · GitHub Actions**
+Amazon Bedrock · Azure-compatible architecture patterns · GitHub Actions
 
 - Architected CI/CD workflow to generate and publish AI-produced content  
 - Implemented Python automation to invoke managed AI services and publish artifacts to cloud storage  
@@ -50,7 +50,7 @@ Python (cloud automation) · Bash · PowerShell
 ---
 
 ### Multilingual Audio Processing System  
-**Transcribe · Translate · Polly · Object Storage**
+Transcribe · Translate · Polly · Object Storage
 
 - Designed automated ingestion, transcription, translation, and speech synthesis workflow  
 - Implemented Python orchestration using managed AI services  
@@ -60,7 +60,7 @@ Python (cloud automation) · Bash · PowerShell
 ---
 
 ### Segmented Two-Tier Web Architecture  
-**Virtual Networking · Compute · Managed Database**
+Virtual Networking · Compute · Managed Database
 
 - Designed segmented network architecture with public and private tiers  
 - Deployed compute and managed database services with enforced network isolation  
@@ -70,7 +70,7 @@ Python (cloud automation) · Bash · PowerShell
 ---
 
 ### Cost Control & Governance Automation  
-**Serverless Compute · Event Scheduling · Infrastructure as Code**
+Serverless Compute · Event Scheduling · Infrastructure as Code
 
 - Developed serverless automation to identify and stop non-production resources  
 - Scheduled enforcement using event-driven triggers  
@@ -82,7 +82,7 @@ Python (cloud automation) · Bash · PowerShell
 ## Experience
 
 ### Client Solutions Specialist / Enterprise Engagement  
-**Confidential Healthcare Technology Organization — Remote**  
+Confidential Healthcare Technology Organization — Remote  
 December 2024 – Present  
 
 - Operate within a high-accountability, metrics-driven enterprise environment  
@@ -94,7 +94,7 @@ December 2024 – Present
 
 ## Education
 
-**Bachelor of Science, Cloud & Network Engineering**  
+Bachelor of Science, Cloud & Network Engineering  
 Western Governors University — Expected May 2026  
 
 ---
