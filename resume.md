@@ -101,8 +101,8 @@ Western Governors University — Expected May 2026
 
 ## Certifications
 
-CompTIA Security+  
-Microsoft Azure Administrator (AZ-104)  
-AWS Solutions Architect – Associate  
+AWS Solutions Architect – Associate — Dec 2025
+Microsoft Azure Administrator (AZ-104) — Jul 2025
+CompTIA Security+ — Apr 2025
 
 HashiCorp Terraform Associate — Planned 2026  
