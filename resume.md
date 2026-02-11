@@ -90,8 +90,8 @@ December 2024 – Present
 
 ## EDUCATION
 
-Bachelor of Science, Cloud Computing  
-Western Governors University, Salt Lake City, UT - Expected Completion: June 2026
+Bachelor of Science, Cloud & Network Engineering  
+Western Governors University, Salt Lake City, UT - Expected Completion: May 2026
 
 ---
 
@@ -99,10 +99,8 @@ Western Governors University, Salt Lake City, UT - Expected Completion: June 202
 
 ### Completed
 CompTIA Security+ — April 2025  
-AWS SysOps Administrator – Associate — July 2025  
+Microsoft Azure Administrator - Associate — July 2025  
 AWS Solutions Architect – Associate — December 2025 
-AWS Certified AI Practitioner — January 2026
 
 ### In Progress / Planned
-HashiCorp Certified: Terraform Associate — Planned March 2026  
-Splunk Core Certified Power User — Planned April 2026
+HashiCorp Certified: Terraform Associate — Planned April 2026  
