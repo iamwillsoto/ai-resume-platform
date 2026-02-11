@@ -3,104 +3,106 @@
 Providence, Rhode Island  
 Email: willalbertosoto@gmail.com  
 Phone: 857.544.6474  
-LinkedIn: www.linkedin.com/in/wilmeralberto   
-GitHub: iamwillsoto
+LinkedIn: https://www.linkedin.com/in/wilmeralberto  
+GitHub: https://github.com/iamwillsoto  
 
 ---
 
-## SUMMARY
+## Summary
 
-Cloud DevOps Engineer with hands-on experience designing, automating, and operating secure, scalable AWS cloud environments. Delivers production-ready platforms using Infrastructure as Code, CI/CD automation, and AWS-native services to support reliable, observable, and well-governed workloads. Brings over 10 years of experience in high-accountability environments, including U.S. Navy service and client-facing, quota-driven roles, informing disciplined execution, clear technical communication, and alignment of engineering decisions with business and operational outcomes.
+Cloud DevOps Engineer designing and operating secure, scalable cloud platforms across AWS and Azure. Specializes in Infrastructure as Code, CI/CD orchestration, identity-first access control, and event-driven architectures. Builds reproducible systems that are observable, automated, and production-ready. Brings over 10 years of experience in high-accountability environments, applying disciplined execution and clear technical communication to deliver reliable engineering outcomes.
 
 ---
 
-## SKILLS
+## Skills
 
-### Cloud Platform Engineering
-Amazon Web Services (VPC, EC2, S3, IAM, Lambda, EventBridge, CloudWatch), AWS CLI
+### Cloud Platforms
+**AWS:** VPC, EC2, S3, IAM, Lambda, EventBridge, RDS, CloudWatch  
+**Azure:** Entra ID, Virtual Networks, Virtual Machines, Storage Accounts, Azure Monitor  
 
 ### Infrastructure as Code
-Terraform, AWS CloudFormation
+Terraform · AWS CloudFormation · Azure Bicep  
 
 ### CI/CD & Automation
-GitHub Actions, Git, YAML, automated promotion workflows with environment isolation (beta → prod)
+GitHub Actions · Pipeline orchestration · Git · YAML  
 
-### Observability & Operations
-AWS CloudWatch (metrics and logs), Splunk (log ingestion and analysis for cloud workloads)
+### Containers & Systems
+Linux · Docker · Kubernetes  
 
-### Systems & Containers
-Linux systems engineering, Docker, containerized workloads, Kubernetes (container orchestration for development workloads)
+### Observability & Governance
+CloudWatch · Azure Monitor · Splunk · IAM policy design  
 
-### Programming & Scripting
-Python (boto3 for AWS automation), Bash, PowerShell
-
----
-
-## PROJECTS
-
-### Prompt Deployment Pipeline | Amazon Bedrock + S3 + GitHub Actions  
-Use Case: Automate AI-powered content creation and publishing for static websites.
-  
-- Designed and implemented a GitHub-based CI/CD pipeline to process prompt templates and configuration files and automatically generate publishable content
-- Developed a Python automation workflow (process_prompt.py) to render prompt templates with environment-specific variables and submit structured requests to Amazon Bedrock
-- Generated AI-produced content as HTML and Markdown artifacts and uploaded outputs to Amazon S3 for static website hosting
-- Implemented environment isolation using versioned S3 prefixes (beta/, prod/) to support controlled promotion from review to production
-- Managed pipeline execution through pull requests and branch merges, with secrets and credentials securely handled via GitHub Actions
-
-### Multilingual Audio Pipeline | Amazon Transcribe + Translate + Polly + S3 + GitHub Actions  
-Use Case: Automate voice-to-voice translation for multilingual audio content.
-
-- Built an end-to-end, automated audio processing pipeline using AWS managed AI services and Python
-- Developed a Python workflow (process_audio.py) to upload audio files to Amazon S3, transcribe speech with Amazon Transcribe, translate text using Amazon Translate, and synthesize multilingual speech with Amazon Polly
-- Structured outputs into organized S3 paths (transcripts/, translations/, audio_outputs/) to support traceability and reuse
-- Automated execution using GitHub Actions workflows for pull request (beta) and main branch (production) deployments
-- Secured AWS credentials and environment-specific configuration using GitHub Secrets 
-
-### Two-Tier Web Architecture on AWS | EC2 + RDS + VPC  
-Use Case: Deploy a secure and scalable content management website.
-
-- Designed and deployed a custom Amazon VPC with public and private subnets, routing tables, and an Internet Gateway
-- Provisioned an Ubuntu-based EC2 instance for the web tier and a MySQL-backed Amazon RDS instance for the database tier
-- Implemented network isolation and security controls using security groups and subnet segmentation (EC2 in public, RDS in private)
-- Validated application connectivity and documented the benefits of a two-tier architecture
-
-### EC2 Shutdown Automation | AWS Lambda + GitHub Actions + CloudFormation  
-Use Case: Reduce unnecessary EC2 runtime costs for non-production environments.
-
-- Developed a Python-based AWS Lambda function using boto3 to identify and stop EC2 instances based on state and tags
-- Scheduled automated shutdowns using Amazon EventBridge to enforce cost-control policies
-- Packaged and deployed the solution using Amazon S3 and AWS CloudFormation, including IAM roles and permissions
-- Automated deployments with GitHub Actions using separate beta and production workflows
-- Managed environment-specific parameters and AWS credentials using GitHub Secrets
+### Programming & Automation
+Python (cloud automation) · Bash · PowerShell  
 
 ---
 
-## EXPERIENCE
+## Selected Systems & Architecture
+
+### AI Deployment Pipeline  
+**Amazon Bedrock · Azure-compatible architecture patterns · GitHub Actions**
+
+- Architected CI/CD workflow to generate and publish AI-produced content  
+- Implemented Python automation to invoke managed AI services and publish artifacts to cloud storage  
+- Enforced environment isolation using structured storage prefixes  
+- Secured deployments through least-privilege access and controlled promotion workflows  
+
+---
+
+### Multilingual Audio Processing System  
+**Transcribe · Translate · Polly · Object Storage**
+
+- Designed automated ingestion, transcription, translation, and speech synthesis workflow  
+- Implemented Python orchestration using managed AI services  
+- Structured outputs for traceability and reuse  
+- Integrated CI/CD-driven promotion between review and production states  
+
+---
+
+### Segmented Two-Tier Web Architecture  
+**Virtual Networking · Compute · Managed Database**
+
+- Designed segmented network architecture with public and private tiers  
+- Deployed compute and managed database services with enforced network isolation  
+- Applied security group rules and identity controls to restrict lateral access  
+- Validated end-to-end connectivity and documented architectural decisions  
+
+---
+
+### Cost Control & Governance Automation  
+**Serverless Compute · Event Scheduling · Infrastructure as Code**
+
+- Developed serverless automation to identify and stop non-production resources  
+- Scheduled enforcement using event-driven triggers  
+- Provisioned roles and permissions using declarative templates  
+- Integrated deployment into CI/CD workflows  
+
+---
+
+## Experience
 
 ### Client Solutions Specialist / Enterprise Engagement  
-Confidential Healthcare Technology Organization — Remote
-December 2024 – Present
+**Confidential Healthcare Technology Organization — Remote**  
+December 2024 – Present  
 
-- Operate in a high-accountability, metrics-driven environment requiring disciplined execution, prioritization, and consistent delivery under pressure  
-- Collaborate with cross-functional stakeholders to translate business requirements into structured workflows, operational processes, and measurable outcomes  
-- Maintain rigorous documentation standards, process hygiene, and handoff practices to support reliability and continuity across teams  
-- Communicate complex technical and operational concepts clearly to leadership, partners, and non-technical stakeholders
-
----
-
-## EDUCATION
-
-Bachelor of Science, Cloud & Network Engineering  
-Western Governors University, Salt Lake City, UT - Expected Completion: May 2026
+- Operate within a high-accountability, metrics-driven enterprise environment  
+- Translate business requirements into structured operational workflows  
+- Maintain documentation and process rigor across cross-functional teams  
+- Communicate technical and operational concepts clearly to leadership and stakeholders  
 
 ---
 
-## CERTIFICATIONS
+## Education
 
-### Completed
-CompTIA Security+ — April 2025  
-Microsoft Azure Administrator - Associate — July 2025  
-AWS Solutions Architect – Associate — December 2025 
+**Bachelor of Science, Cloud & Network Engineering**  
+Western Governors University — Expected May 2026  
 
-### In Progress / Planned
-HashiCorp Certified: Terraform Associate — Planned April 2026  
+---
+
+## Certifications
+
+CompTIA Security+  
+Microsoft Azure Administrator (AZ-104)  
+AWS Solutions Architect – Associate  
+
+HashiCorp Terraform Associate — Planned 2026  
