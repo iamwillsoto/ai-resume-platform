@@ -3,7 +3,7 @@
 Providence, Rhode Island  
 Email: willalbertosoto@gmail.com  
 Phone: 857.544.6474  
-LinkedIn: www.linkedin.com/in/wilmeralberto  
+LinkedIn: www.linkedin.com/in/wilmeralberto   
 GitHub: iamwillsoto
 
 ---
