@@ -25,7 +25,7 @@ AWS Cloud Engineer and US Navy Veteran specializing in secure, highly available 
 
 ## EXPERIENCE
 
-### VERIZON | Cloud Support Engineer / Cloud Operations Specialist
+### VERIZON | Cloud Support Engineer
 **Jan 2021 – Mar 2024**
 - Monitored and supported production AWS infrastructure including EC2, S3, IAM, and CloudWatch to maintain 99.9% service availability and SLA compliance across enterprise cloud environments.
 - Troubleshot compute, networking, and storage incidents including VPC routing, DNS resolution, firewall rules, and load balancer configurations in collaboration with network and security teams.
@@ -44,9 +44,8 @@ AWS Cloud Engineer and US Navy Veteran specializing in secure, highly available 
 
 ### LIFE TIME FITNESS | IT Service Desk Technician
 **Sep 2014 – Aug 2020 | Burlington, MA**
-- Escalation point for enterprise identity and access issues, managing Active Directory account lifecycle, VPN access, SSO authentication, and Microsoft 365 administration across 1K+ users and 6 locations.
-- Troubleshot LAN/WAN connectivity issues including VPN, DNS, DHCP, and endpoint configuration, building the networking foundation behind cloud VPC design, subnet segmentation, and access control architecture.
-- Managed incident and change workflows in ServiceNow, strengthening structured ticket handling, documentation standards, and repeatable infrastructure resolution processes.
+- Escalation point for enterprise identity and access management across 1K+ users and 6 locations, administering Active Directory lifecycle, VPN/SSO authentication, and structured incident and change workflows in ServiceNow.
+- Resolved LAN/WAN connectivity issues including VPN, DNS, DHCP, and endpoint configuration, establishing the networking discipline foundational to cloud VPC routing and access control design.
 
 ---
 
