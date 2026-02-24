@@ -25,8 +25,17 @@ AWS Cloud Engineer and US Navy Veteran specializing in secure, highly available 
 
 ## EXPERIENCE
 
+### HD SUPPLY | Cloud Infrastructure Engineer (Contract)
+**Jun 2024 – Present**
+- Engineered segmented AWS network foundations including VPCs, public/private subnets, route tables, Transit Gateway, NAT/egress controls, and security group policy to isolate workloads and standardize traffic flow across environments.
+- Managed Route 53 DNS architecture across environments, configuring hosted zones, routing policies, and DNS resolution to support reliable, scalable infrastructure connectivity.
+- Implemented infrastructure security baselines by enforcing KMS encryption, least-privilege IAM role design, and RBAC scoped access patterns to reduce standing privilege and limit blast radius across production workloads.
+- Automated compliance evidence and operational reporting using AWS Lambda and PowerShell, turning Security Hub and Inspector findings into repeatable audit-ready outputs and reducing manual verification effort.
+
+---
+
 ### LEVELUPINTECH | Cloud Engineer
-**Sep 2023 – Feb 2024**
+**Feb 2024 – Oct 2025**
 - Architected secure multi-tier AWS infrastructure using Terraform Cloud across ALB, Auto Scaling, and RDS with private subnet isolation, identity-scoped security group enforcement, and repeatable IaC convergence across multiple Availability Zones.
 - Designed reusable VPC architectures including subnet segmentation, route tables, NAT gateways, and least-privilege IAM boundaries across structurally isolated beta and production environments.
 - Hardened cloud security posture by implementing KMS encryption, GuardDuty threat detection, and AWS Config rule validation across all provisioned infrastructure tiers.
