@@ -25,27 +25,28 @@ AWS Cloud Engineer and US Navy Veteran specializing in secure, highly available 
 
 ## EXPERIENCE
 
-### VERIZON | Cloud Support Engineer
-**Jan 2021 – Mar 2024**
-- Monitored and supported production AWS infrastructure including EC2, S3, IAM, and CloudWatch to maintain 99.9% service availability and SLA compliance across enterprise cloud environments.
-- Troubleshot compute, networking, and storage incidents including VPC routing, DNS resolution, firewall rules, and load balancer configurations in collaboration with network and security teams.
-- Provisioned and modified cloud resources using Terraform and CloudFormation, enforcing least-privilege IAM policies and RBAC controls across production workloads.
-- Analyzed CloudWatch logs and performance metrics to identify bottlenecks and optimize resource utilization, reducing ticket resolution time by 25%.
+### LEVELUPINTECH | Cloud Engineer
+**Sep 2023 – Feb 2024**
+- Architected secure multi-tier AWS infrastructure using Terraform Cloud across ALB, Auto Scaling, and RDS with private subnet isolation, identity-scoped security group enforcement, and repeatable IaC convergence across multiple Availability Zones.
+- Designed reusable VPC architectures including subnet segmentation, route tables, NAT gateways, and least-privilege IAM boundaries across structurally isolated beta and production environments.
+- Hardened cloud security posture by implementing KMS encryption, GuardDuty threat detection, and AWS Config rule validation across all provisioned infrastructure tiers.
+- Integrated managed AI capabilities into cloud infrastructure by provisioning Amazon Bedrock pipelines with throttling-aware fallback logic and DynamoDB persistence across isolated environments.
 
 ---
 
-### LEVELUPINTECH | Cloud Engineer
-**Sep 2023 – Feb 2024**
-- Architected secure multi-tier AWS infrastructure using Terraform Cloud across ALB, Auto Scaling, and RDS with private subnet isolation and identity-scoped security group enforcement across multiple Availability Zones.
-- Designed reusable VPC architectures including subnet segmentation, route tables, NAT gateways, and least-privilege IAM boundaries for structurally isolated beta and production environments.
-- Hardened cloud security posture by enforcing KMS encryption, GuardDuty monitoring, and AWS Config rule validation across all provisioned tiers.
+### VERIZON | Cloud Support Engineer
+**Jan 2021 – Mar 2024**
+- Operated and supported production AWS infrastructure including EC2, VPC, RDS, S3, and IAM to maintain 99.9% service availability and SLA compliance across enterprise environments.
+- Diagnosed and resolved infrastructure incidents spanning VPC routing, DNS resolution, security group conflicts, and load balancer behavior in partnership with network and security teams.
+- Provisioned and modified cloud resources using Terraform and CloudFormation, applying least-privilege IAM policies and RBAC boundaries across production workloads.
+- Monitored service health using CloudWatch logs and metrics, identifying performance bottlenecks and optimizing resource utilization, reducing incident resolution time by 25%.
 
 ---
 
 ### LIFE TIME FITNESS | IT Service Desk Technician
 **Sep 2014 – Aug 2020 | Burlington, MA**
 - Escalation point for enterprise identity and access management across 1K+ users and 6 locations, administering Active Directory lifecycle, VPN/SSO authentication, and structured incident and change workflows in ServiceNow.
-- Resolved LAN/WAN connectivity issues including VPN, DNS, DHCP, and endpoint configuration, establishing the networking discipline foundational to cloud VPC routing and access control design.
+- Resolved LAN/WAN connectivity issues including VPN, DNS, DHCP, and endpoint configuration across enterprise infrastructure.
 
 ---
 
