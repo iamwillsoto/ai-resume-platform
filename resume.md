@@ -1,108 +1,122 @@
-# Will A. Soto
+# WILL SOTO
+**AWS Cloud Engineer | US Navy Veteran**
 
-Providence, Rhode Island  
-Email: willalbertosoto@gmail.com  
-Phone: 857.544.6474  
-LinkedIn: https://www.linkedin.com/in/wilmeralberto  
-GitHub: https://github.com/iamwillsoto  
+Providence, RI (Remote-Ready) | willalbertosoto@gmail.com | 857-544-6474
+[linkedin.com/in/wilmeralberto](https://linkedin.com/in/wilmeralberto) | [github.com/iamwillsoto](https://github.com/iamwillsoto)
 
 ---
 
-## Summary
+## PROFESSIONAL SUMMARY
 
-Cloud DevOps Engineer designing and operating secure, scalable cloud platforms across AWS and Azure. Specializes in Infrastructure as Code, CI/CD orchestration, identity-first access control, and event-driven architectures. Builds reproducible systems that are observable, automated, and production-ready. Brings over 10 years of experience in high-accountability environments, applying disciplined execution and clear technical communication to deliver reliable engineering outcomes.
-
----
-
-## Skills
-
-### Cloud Platforms
-AWS: VPC, EC2, S3, IAM, Lambda, EventBridge, RDS, CloudWatch  
-Azure: Entra ID, Virtual Networks, Virtual Machines, Storage Accounts, Azure Monitor  
-
-### Infrastructure as Code
-Terraform · AWS CloudFormation · Azure Bicep  
-
-### CI/CD & Automation
-GitHub Actions · Pipeline orchestration · Git · YAML  
-
-### Containers & Systems
-Linux · Docker · Kubernetes  
-
-### Observability & Governance
-CloudWatch · Azure Monitor · Splunk · IAM policy design  
-
-### Programming & Automation
-Python (cloud automation) · Bash · PowerShell  
+AWS Cloud Engineer and US Navy Veteran specializing in production-grade
+infrastructure as code, event-driven serverless systems, and secure multi-AZ
+AWS architectures. Designs highly available, least-privilege environments using
+Terraform and GitHub Actions CI/CD, and operationalizes managed AI services with
+full auditability from beta to production. Focused on reliability, drift
+elimination, security boundaries, and deterministic deployments.
 
 ---
 
-## Selected Systems & Architecture
+## SKILLS
 
-### AI Deployment Pipeline  
-Amazon Bedrock · Azure-compatible architecture patterns · GitHub Actions
-
-- Architected CI/CD workflow to generate and publish AI-produced content  
-- Implemented Python automation to invoke managed AI services and publish artifacts to cloud storage  
-- Enforced environment isolation using structured storage prefixes  
-- Secured deployments through least-privilege access and controlled promotion workflows  
-
----
-
-### Multilingual Audio Processing System  
-Transcribe · Translate · Polly · Object Storage
-
-- Designed automated ingestion, transcription, translation, and speech synthesis workflow  
-- Implemented Python orchestration using managed AI services  
-- Structured outputs for traceability and reuse  
-- Integrated CI/CD-driven promotion between review and production states  
+| Category | Technologies |
+|---|---|
+| **AWS** | EC2, S3, RDS, VPC, Lambda, DynamoDB, CloudFront, CloudWatch |
+| **Infrastructure as Code** | Terraform, Terraform Cloud, CloudFormation, Packer |
+| **CI/CD & DevOps** | GitHub Actions, OIDC, AWS CodePipeline, Jenkins, Git |
+| **Containers & Compute** | Docker, Docker Swarm, Amazon ECS, Kubernetes |
+| **AI & ML Services** | Amazon Bedrock, Rekognition, Transcribe, Translate, Polly |
+| **Security** | IAM, RBAC, KMS, Secrets Manager, GuardDuty, AWS WAF |
+| **Programming & Scripting** | Python, Boto3, Bash, Shell Scripting, Linux |
 
 ---
 
-### Segmented Two-Tier Web Architecture  
-Virtual Networking · Compute · Managed Database
+## EXPERIENCE
 
-- Designed segmented network architecture with public and private tiers  
-- Deployed compute and managed database services with enforced network isolation  
-- Applied security group rules and identity controls to restrict lateral access  
-- Validated end-to-end connectivity and documented architectural decisions  
+### LEVELUPINTECH | Cloud Engineer
+*Sep 2023 – Feb 2024*
+
+- Established reusable IaC patterns for multi-tier AWS architectures by engineering
+  modular Terraform Cloud configurations across ALB, Auto Scaling, and RDS with
+  private subnet isolation, identity-scoped security boundaries, and zero-drift
+  convergence across multiple AZs.
+
+- Owned AI pipeline delivery by architecting a review-first GitHub Actions CI/CD
+  platform integrating Amazon Bedrock with throttling-aware fallback logic and
+  DynamoDB analytics persistence, eliminating 100% of manual deployment steps
+  across fully isolated beta and production environments.
+
+- Defined event-driven infrastructure standards by designing serverless Lambda
+  pipelines triggered via S3 ObjectCreated events with Amazon Rekognition,
+  producing versioned, auditable classification artifacts per deployment across
+  2 structurally isolated environments.
+
+- Standardized multilingual content delivery by architecting an automated audio
+  localization pipeline using Transcribe, Translate, and Polly with end-to-end
+  Lambda event execution and Terraform IaC, reducing manual processing overhead
+  to zero.
+
+- Hardened cloud security posture by establishing least-privilege IAM boundaries,
+  integrating GuardDuty for continuous threat detection, and enforcing KMS
+  encryption across all provisioned environments, identity-scoped at every tier.
+
+- Automated IAM governance and EC2 lifecycle management by engineering Lambda and
+  EventBridge workflows with tag-based enforcement, API Gateway triggers, and
+  full DynamoDB audit logging, cutting estimated manual overhead by 80% with
+  zero production impact.
+
+- Enforced infrastructure compliance standards by implementing CI repository
+  validation, structured CloudWatch audit logging, and OIDC federated
+  authentication across 8+ projects, eliminating long-lived credentials
+  from every deployment workflow.
+
+- Owned container orchestration platform by deploying Docker Swarm across
+  multi-node clusters with secrets-managed credentials, durable volume
+  persistence, and control plane-enforced failure recovery.
 
 ---
 
-### Cost Control & Governance Automation  
-Serverless Compute · Event Scheduling · Infrastructure as Code
+### LIFE TIME FITNESS | IT Service Desk Technician
+*Jan 2015 – Aug 2020 | Burlington, MA*
 
-- Developed serverless automation to identify and stop non-production resources  
-- Scheduled enforcement using event-driven triggers  
-- Provisioned roles and permissions using declarative templates  
-- Integrated deployment into CI/CD workflows  
+- Escalation point for enterprise identity and access issues, managing Active
+  Directory account lifecycle, VPN access, SSO authentication, and Microsoft
+  365 administration across 1K+ users and 6 locations.
 
----
-
-## Experience
-
-### Client Solutions Specialist / Enterprise Engagement  
-Confidential Healthcare Technology Organization — Remote  
-December 2024 – Present  
-
-- Operate within a high-accountability, metrics-driven enterprise environment  
-- Translate business requirements into structured operational workflows  
-- Maintain documentation and process rigor across cross-functional teams  
-- Communicate technical and operational concepts clearly to leadership and stakeholders  
+- Troubleshot endpoint and site connectivity issues including VPN, DNS, DHCP,
+  and LAN, building networking fundamentals directly transferable to cloud
+  VPC routing, subnet design, and access control architecture.
 
 ---
 
-## Education
+### US NAVY | Boatswain's Mate
+*Jan 2010 – Mar 2014 | USS Lake Champlain, San Diego, CA*
 
-Bachelor of Science, Cloud & Network Engineering  
-Western Governors University — Expected May 2026  
+- Executed mission-critical operations within a high-risk, compliance-driven
+  environment, developing production-grade discipline in incident response,
+  operational ownership, and procedural execution under pressure.
+
+- Coordinated across engineering, navigation, and command units under strict
+  chain-of-command governance, reinforcing structured accountability, risk
+  assessment, and authority boundaries applicable to access control, security
+  governance, and platform reliability.
 
 ---
 
-## Certifications
+## CERTIFICATIONS
 
-AWS Solutions Architect – Associate — Dec 2025
-Microsoft Azure Administrator (AZ-104) — Jul 2025
-CompTIA Security+ — Apr 2025
+| Certification | Date |
+|---|---|
+| AWS Certified Solutions Architect – Associate | Dec 2025 |
+| AWS Certified AI Practitioner | Jan 2026 |
+| Microsoft Certified: Azure Administrator Associate (AZ-104) | Jul 2025 |
+| CompTIA Security+ | Apr 2025 |
+| CompTIA Network+ | Feb 2026 |
+| Linux Essentials Certificate (LPI) | Oct 2025 |
 
-HashiCorp Terraform Associate — Planned 2026  
+---
+
+## EDUCATION
+
+**Western Governors University** | Apr 2026
+Bachelor of Science, Cloud & Network Engineering
