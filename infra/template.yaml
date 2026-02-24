@@ -13,9 +13,12 @@ Resources:
       BucketName: !Ref BucketName
       VersioningConfiguration:
         Status: Enabled
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        IgnorePublicAcls: true
+        BlockPublicAcls: false
+        IgnorePublicAcls: false
         BlockPublicPolicy: false
         RestrictPublicBuckets: false
 
@@ -59,6 +62,10 @@ Resources:
 Outputs:
   BucketNameOut:
     Value: !Ref ResumeSiteBucket
+
+  WebsiteURL:
+    Value: !GetAtt ResumeSiteBucket.WebsiteURL
+    Description: S3 static website URL (renders HTML in browser)
 
   DeploymentTrackingTableName:
     Value: !Ref DeploymentTrackingTable

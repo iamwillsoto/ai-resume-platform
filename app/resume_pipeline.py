@@ -74,9 +74,36 @@ def read_text_file(path: str) -> str:
         return f.read()
 
 
+def render_inline(text: str) -> str:
+    """
+    Convert inline markdown (bold, italic) to HTML after escaping raw text.
+    Order matters: escape first, then apply inline tags.
+    """
+    text = (
+        text.replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace('"', "&quot;")
+            .replace("'", "&#39;")
+    )
+    # Bold+italic: ***text*** or ___text___
+    text = re.sub(r"\*\*\*(.*?)\*\*\*", r"<strong><em>\1</em></strong>", text)
+    text = re.sub(r"___(.*?)___", r"<strong><em>\1</em></strong>", text)
+    # Bold: **text** or __text__
+    text = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", text)
+    text = re.sub(r"__(.*?)__", r"<strong>\1</strong>", text)
+    # Italic: *text* or _text_
+    text = re.sub(r"\*(.*?)\*", r"<em>\1</em>", text)
+    text = re.sub(r"_(.*?)_", r"<em>\1</em>", text)
+    # Inline code: `code`
+    text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
+    return text
+
+
 def md_to_basic_html(md: str) -> str:
     """
     Deterministic HTML rendering (ATS-friendly, no dependencies).
+    Handles: h1/h2/h3, ul/li, hr, bold, italic, inline code, paragraphs.
     """
     lines = [ln.rstrip() for ln in md.splitlines()]
 
@@ -90,47 +117,58 @@ def md_to_basic_html(md: str) -> str:
             in_ul = False
 
     for ln in lines:
+        # Horizontal rule: --- or ***
+        if re.match(r"^\s*[-*]{3,}\s*$", ln):
+            close_ul()
+            html_parts.append("<hr>")
+            continue
+
         if not ln.strip():
+            close_ul()
             continue
 
         if ln.startswith("# "):
             close_ul()
-            html_parts.append(f"<h1>{escape_html(ln[2:].strip())}</h1>")
+            html_parts.append(f"<h1>{render_inline(ln[2:].strip())}</h1>")
         elif ln.startswith("## "):
             close_ul()
-            html_parts.append(f"<h2>{escape_html(ln[3:].strip())}</h2>")
+            html_parts.append(f"<h2>{render_inline(ln[3:].strip())}</h2>")
         elif ln.startswith("### "):
             close_ul()
-            html_parts.append(f"<h3>{escape_html(ln[4:].strip())}</h3>")
-        elif ln.startswith("- "):
+            html_parts.append(f"<h3>{render_inline(ln[4:].strip())}</h3>")
+        elif ln.startswith("- ") or ln.startswith("* "):
             if not in_ul:
                 html_parts.append("<ul>")
                 in_ul = True
-            html_parts.append(f"<li>{escape_html(ln[2:].strip())}</li>")
+            html_parts.append(f"<li>{render_inline(ln[2:].strip())}</li>")
         else:
             close_ul()
-            html_parts.append(f"<p>{escape_html(ln.strip())}</p>")
+            html_parts.append(f"<p>{render_inline(ln.strip())}</p>")
 
     close_ul()
 
     css = """
-    body { font-family: Arial, sans-serif; margin: 28px; color: #111; }
-    main { max-width: 900px; }
-    h1 { margin: 0 0 8px; font-size: 28px; }
-    h2 { margin: 18px 0 6px; font-size: 18px; }
-    h3 { margin: 12px 0 6px; font-size: 14px; }
-    p, li { line-height: 1.45; margin: 4px 0; font-size: 13px; }
-    ul { margin: 6px 0 12px 20px; padding: 0; }
+    body { font-family: Arial, sans-serif; margin: 40px auto; color: #111; max-width: 860px; padding: 0 20px; }
+    h1 { font-size: 26px; margin: 0 0 4px; }
+    h2 { font-size: 16px; margin: 20px 0 4px; border-bottom: 1px solid #ccc; padding-bottom: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+    h3 { font-size: 14px; margin: 12px 0 2px; }
+    p { font-size: 13px; line-height: 1.5; margin: 3px 0; }
+    ul { margin: 4px 0 10px 20px; padding: 0; }
+    li { font-size: 13px; line-height: 1.5; margin: 2px 0; }
+    hr { border: none; border-top: 1px solid #ddd; margin: 14px 0; }
+    code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-size: 12px; }
+    strong { font-weight: 600; }
     """
     return (
-        "<!doctype html><html><head><meta charset='utf-8'>"
-        f"<meta name='viewport' content='width=device-width, initial-scale=1'>"
-        f"<title>Resume</title><style>{css}</style></head>"
-        f"<body><main>{''.join(html_parts)}</main></body></html>"
+        "<!doctype html><html lang='en'><head><meta charset='utf-8'>"
+        "<meta name='viewport' content='width=device-width, initial-scale=1'>"
+        f"<title>Will Soto | AWS Cloud Engineer</title><style>{css}</style></head>"
+        f"<body>{''.join(html_parts)}</body></html>"
     )
 
 
 def escape_html(s: str) -> str:
+    # Kept for compatibility — use render_inline() for full markdown support
     return (
         s.replace("&", "&amp;")
         .replace("<", "&lt;")
@@ -351,10 +389,11 @@ def upload_html_to_s3(region: str, bucket: str, env: str, html: str) -> str:
         Bucket=bucket,
         Key=key,
         Body=html.encode("utf-8"),
-        ContentType="text/html",
+        ContentType="text/html; charset=utf-8",
         CacheControl="no-cache",
     )
-    return f"https://{bucket}.s3.amazonaws.com/{key}"
+    # Use S3 website endpoint so browsers render HTML instead of downloading it
+    return f"http://{bucket}.s3-website-{region}.amazonaws.com/{key}"
 
 
 def put_deployment_tracking(
@@ -439,9 +478,9 @@ def main() -> int:
             bedrock_region=bedrock_region,
             model_id=model_id,
             prompt=html_prompt,
-            max_tokens=700,  # keep low to reduce throttling
+            max_tokens=4000,  # full resume HTML requires sufficient token budget
             temperature=0.2,
-            retries=1,       # avoid aggressive retries
+            retries=1,
             backoff_seconds=2.0,
         )
         html = sanitize_html(html_raw)
