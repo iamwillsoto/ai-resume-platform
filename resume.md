@@ -13,30 +13,32 @@ AWS Cloud Engineer and US Navy Veteran specializing in secure, highly available 
 
 ## SKILLS
 
-**AWS Infrastructure:** EC2, VPC, Subnets, Route Tables, NAT Gateway, ALB, Auto Scaling, RDS, S3, Lambda, API Gateway, DynamoDB, Route 53
+**AWS Infrastructure:** EC2, VPC, Subnets, Route Tables, NAT Gateway, ALB, Auto Scaling, RDS, S3, Lambda, API Gateway, DynamoDB, Route 53, VPC Design, Subnet Segmentation, Security Groups, Network Isolation
 **Infrastructure as Code:** Terraform, Terraform Cloud, CloudFormation, Ansible, Packer
 **Identity & Security:** IAM, RBAC, KMS, GuardDuty, Security Hub, AWS Config, AWS WAF
-**Networking:** VPC Design, Subnet Segmentation, Routing, Security Groups, Network Isolation
 **Containers & Compute:** Docker, Docker Swarm, Amazon ECS, Kubernetes
 **Monitoring & Observability:** CloudWatch, Datadog, Prometheus, Grafana, Splunk
-**CI/CD & Automation:** GitHub Actions, OIDC, AWS CodePipeline, Jenkins, Bitbucket
-**Programming & Scripting:** Python, Boto3, Bash, PowerShell, Linux
+**Automation & Scripting:** Python, Boto3, Bash, PowerShell, Linux, GitHub Actions, OIDC, AWS CodePipeline, Jenkins, Bitbucket
 **AI Integration:** Amazon Bedrock, Rekognition, Transcribe, Translate, Polly
-**Azure (Secondary):** AZ-104 / AZ-305-aligned administration and architecture fundamentals
 
 ---
 
 ## EXPERIENCE
 
+### VERIZON | Cloud Support Engineer / Cloud Operations Specialist
+**Jan 2021 – Mar 2024**
+- Monitored and supported production AWS infrastructure including EC2, S3, IAM, and CloudWatch to maintain 99.9% service availability and SLA compliance across enterprise cloud environments.
+- Troubleshot compute, networking, and storage incidents including VPC routing, DNS resolution, firewall rules, and load balancer configurations in collaboration with network and security teams.
+- Provisioned and modified cloud resources using Terraform and CloudFormation, enforcing least-privilege IAM policies and RBAC controls across production workloads.
+- Analyzed CloudWatch logs and performance metrics to identify bottlenecks and optimize resource utilization, reducing ticket resolution time by 25%.
+
+---
+
 ### LEVELUPINTECH | Cloud Engineer
 **Sep 2023 – Feb 2024**
 - Architected secure multi-tier AWS infrastructure using Terraform Cloud across ALB, Auto Scaling, and RDS with private subnet isolation and identity-scoped security group enforcement across multiple Availability Zones.
 - Designed reusable VPC architectures including subnet segmentation, route tables, NAT gateways, and least-privilege IAM boundaries for structurally isolated beta and production environments.
-- Hardened cloud security posture by enforcing KMS encryption, GuardDuty monitoring, AWS Config rule enforcement, and IAM permission boundary design across all provisioned tiers.
-- Automated EC2 lifecycle governance and IAM access management using Lambda and EventBridge workflows with DynamoDB audit logging, eliminating idle resource accumulation with zero production impact.
-- Provisioned and managed containerized infrastructure using Docker Swarm across multi-node clusters with secrets-managed credentials and durable volume persistence.
-- Integrated managed AI capabilities into cloud infrastructure by provisioning Amazon Bedrock pipelines with throttling-aware fallback logic across structurally isolated environments, delivered via GitHub Actions with federated OIDC authentication.
-- Enforced infrastructure auditability by implementing structured CloudWatch logging and eliminating long-lived credentials across 8+ deployment pipelines.
+- Hardened cloud security posture by enforcing KMS encryption, GuardDuty monitoring, and AWS Config rule validation across all provisioned tiers.
 
 ---
 
