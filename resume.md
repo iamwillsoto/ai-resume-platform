@@ -1,5 +1,4 @@
 # WILL SOTO
-
 **AWS Cloud Engineer | US Navy Veteran**
 
 Providence, RI (Remote-Ready) | willalbertosoto@gmail.com | 857-544-6474 | linkedin.com/in/wilmeralberto | github.com/iamwillsoto
@@ -8,25 +7,37 @@ Providence, RI (Remote-Ready) | willalbertosoto@gmail.com | 857-544-6474 | linke
 
 ## PROFESSIONAL SUMMARY
 
-AWS Cloud Engineer and US Navy Veteran specializing in production-grade infrastructure as code, event-driven serverless systems, and secure multi-AZ AWS architectures. Designs highly available, least-privilege environments using Terraform and GitHub Actions CI/CD, and operationalizes managed AI services with full auditability from beta to production. Focused on reliability, drift elimination, security boundaries, and deterministic deployments.
+AWS Cloud Engineer and US Navy Veteran specializing in secure, highly
+available AWS infrastructure design and infrastructure as code. Architects
+multi-tier environments with Terraform, enforces least-privilege security
+boundaries across every provisioned tier, and delivers governed cloud
+platforms with full auditability from beta to production. Focused on
+infrastructure reliability, drift elimination, security hardening, and
+deterministic deployments at scale.
 
 ---
 
 ## SKILLS
 
-**AWS:** EC2, S3, RDS, VPC, Lambda, DynamoDB, CloudFront, CloudWatch
+**AWS:** EC2, S3, RDS, VPC, Lambda, DynamoDB, CloudFront, CloudWatch, API Gateway, CloudTrail, SNS, SQS, Route 53, AWS Config, AWS WAF, AWS Shield, AWS X-Ray, AWS Organizations, Elastic Beanstalk, Trusted Advisor
 
-**Infrastructure as Code:** Terraform, Terraform Cloud, CloudFormation, Packer
+**Infrastructure as Code:** Terraform, Terraform Cloud, CloudFormation, Ansible, Packer
 
-**CI/CD & DevOps:** GitHub Actions, OIDC, AWS CodePipeline, Jenkins, Git
+**CI/CD & DevOps:** GitHub Actions, OIDC, AWS CodePipeline, CodeBuild, Jenkins, Git, Bitbucket, Maven, Gradle
 
-**Containers & Compute:** Docker, Docker Swarm, Amazon ECS, Kubernetes
+**Containers & Compute:** Docker, Docker Swarm, Amazon ECS, Amazon EKS, Kubernetes
 
 **AI & ML Services:** Amazon Bedrock, Rekognition, Transcribe, Translate, Polly
 
-**Security:** IAM, RBAC, KMS, Secrets Manager, GuardDuty, AWS WAF
+**Monitoring & Observability:** CloudWatch, AWS X-Ray, Prometheus, Grafana, Datadog
 
-**Programming & Scripting:** Python, Boto3, Bash, Shell Scripting, Linux
+**Security:** IAM, RBAC, KMS, CloudHSM, Secrets Manager, GuardDuty, Security Hub, AWS Inspector, AWS Config Rules, AWS WAF
+
+**Infrastructure Management:** VPC Design, Subnetting, Routing, NAT Gateways, Network Security, Infrastructure Optimization
+
+**Database Management:** DynamoDB, RDS, MySQL, NoSQL
+
+**Programming & Scripting:** Python, Boto3, Bash, Shell Scripting, PowerShell, Linux
 
 ---
 
@@ -35,39 +46,39 @@ AWS Cloud Engineer and US Navy Veteran specializing in production-grade infrastr
 ### LEVELUPINTECH | Cloud Engineer
 **Sep 2023 – Feb 2024**
 
-- Established reusable IaC patterns for multi-tier AWS architectures by engineering modular Terraform Cloud configurations across ALB, Auto Scaling, and RDS with private subnet isolation, identity-scoped security boundaries, and zero-drift convergence across multiple AZs.
+- Architected secure multi-tier AWS infrastructure by engineering modular Terraform Cloud configurations across ALB, Auto Scaling, and RDS with private subnet isolation, identity-scoped security group boundaries, and zero-drift IaC convergence across multiple Availability Zones.
 
-- Owned AI pipeline delivery by architecting a review-first GitHub Actions CI/CD platform integrating Amazon Bedrock with throttling-aware fallback logic and DynamoDB analytics persistence, eliminating 100% of manual deployment steps across fully isolated beta and production environments.
+- Designed and provisioned event-driven serverless infrastructure using Lambda, S3, API Gateway, and EventBridge, establishing reusable architecture patterns across fully isolated beta and production environments.
 
-- Defined event-driven infrastructure standards by designing serverless Lambda pipelines triggered via S3 ObjectCreated events with Amazon Rekognition, producing versioned, auditable classification artifacts per deployment across 2 structurally isolated environments.
+- Hardened cloud security posture across all provisioned environments by enforcing least-privilege IAM boundaries, deploying GuardDuty for continuous threat detection, and implementing KMS encryption identity-scoped at every infrastructure tier.
 
-- Standardized multilingual content delivery by architecting an automated audio localization pipeline using Transcribe, Translate, and Polly with end-to-end Lambda event execution and Terraform IaC, reducing manual processing overhead to zero.
+- Automated EC2 lifecycle governance and IAM access management by engineering Lambda and EventBridge workflows with tag-based enforcement and full DynamoDB audit logging, eliminating idle resource accumulation with zero production impact.
 
-- Hardened cloud security posture by establishing least-privilege IAM boundaries, integrating GuardDuty for continuous threat detection, and enforcing KMS encryption across all provisioned environments, identity-scoped at every tier.
+- Provisioned and managed containerized infrastructure by deploying Docker Swarm across multi-node clusters with secrets-managed credentials, durable volume persistence, and control plane-enforced failure recovery.
 
-- Automated IAM governance and EC2 lifecycle management by engineering Lambda and EventBridge workflows with tag-based enforcement, API Gateway triggers, and full DynamoDB audit logging, cutting estimated manual overhead by 80% with zero production impact.
+- Integrated AI capabilities into cloud infrastructure by provisioning Amazon Bedrock pipelines with throttling-aware fallback logic and DynamoDB analytics persistence across structurally isolated environments, delivered via GitHub Actions CI/CD.
 
-- Enforced infrastructure compliance standards by implementing CI repository validation, structured CloudWatch audit logging, and OIDC federated authentication across 8+ projects, eliminating long-lived credentials from every deployment workflow.
+- Enforced infrastructure compliance and auditability by implementing OIDC federated authentication, structured CloudWatch audit logging, and CI repository validation across 8+ projects, eliminating long-lived credentials from every deployment workflow.
 
-- Owned container orchestration platform by deploying Docker Swarm across multi-node clusters with secrets-managed credentials, durable volume persistence, and control plane-enforced failure recovery.
+- Standardized multilingual content infrastructure using Transcribe, Translate, and Polly with automated Lambda event execution and Terraform IaC, reducing manual processing overhead to zero.
 
 ---
 
 ### LIFE TIME FITNESS | IT Service Desk Technician
-**Jan 2015 – Aug 2020 | Burlington, MA**
+**Sep 2014 – Aug 2020 | Burlington, MA**
 
 - Escalation point for enterprise identity and access issues, managing Active Directory account lifecycle, VPN access, SSO authentication, and Microsoft 365 administration across 1K+ users and 6 locations.
 
-- Troubleshot endpoint and site connectivity issues including VPN, DNS, DHCP, and LAN, building networking fundamentals directly transferable to cloud VPC routing, subnet design, and access control architecture.
+- Troubleshot endpoint and site connectivity issues including VPN, DNS, DHCP, and LAN, building the networking foundation behind cloud VPC design, subnet segmentation, and access control architecture.
 
 ---
 
 ### US NAVY | Boatswain's Mate
 **Jan 2010 – Mar 2014 | USS Lake Champlain, San Diego, CA**
 
-- Executed mission-critical operations within a high-risk, compliance-driven environment, developing production-grade discipline in incident response, operational ownership, and procedural execution under pressure.
+- Executed mission-critical operations under strict safety, compliance, and readiness standards in high-risk environments demanding procedural accuracy and rapid decision-making under pressure.
 
-- Coordinated across engineering, navigation, and command units under strict chain-of-command governance, reinforcing structured accountability, risk assessment, and authority boundaries applicable to access control, security governance, and platform reliability.
+- Coordinated across engineering, navigation, and command units under chain-of-command governance, enforcing accountability, decisive judgment, and precision in high-stakes environments.
 
 ---
 
