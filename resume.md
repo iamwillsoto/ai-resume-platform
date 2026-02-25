@@ -1,5 +1,5 @@
 # WILL SOTO
-**AWS Cloud Engineer | US Navy Veteran**
+**Cloud Infrastructure Engineer | US Navy Veteran**
 
 Providence, RI (Remote-Ready) | willalbertosoto@gmail.com | 857-544-6474 | linkedin.com/in/wilmeralberto | github.com/iamwillsoto
 
@@ -7,18 +7,18 @@ Providence, RI (Remote-Ready) | willalbertosoto@gmail.com | 857-544-6474 | linke
 
 ## PROFESSIONAL SUMMARY
 
-AWS Cloud Engineer and US Navy Veteran specializing in secure, highly available cloud infrastructure design and infrastructure as code. Architects multi-tier AWS environments with Terraform, enforces least-privilege identity boundaries, and delivers governed production platforms with full auditability. Focused on infrastructure reliability, drift elimination, network segmentation, and security hardening at scale.
+Cloud Infrastructure Engineer focused on enterprise AWS platforms, network segmentation, and IaC-governed change. Builds audit-ready environments with deterministic routing, identity boundary enforcement, and cloud-native security controls. Known for reliability engineering, drift elimination, controlled change execution, and blast-radius reduction at scale.
 
 ---
 
 ## SKILLS
 
-**AWS Infrastructure:** EC2, VPC, Subnets, Route Tables, NAT Gateway, ALB, Auto Scaling, RDS, S3, Lambda, API Gateway, DynamoDB, Route 53, VPC Design, Subnet Segmentation, Security Groups, Network Isolation
+**AWS Infrastructure:** VPC, Transit Gateway, Route 53, ALB, Auto Scaling, EC2, RDS, S3, Lambda, API Gateway, DynamoDB
 **Infrastructure as Code:** Terraform, Terraform Cloud, CloudFormation, Ansible, Packer
-**Identity & Security:** IAM, RBAC, KMS, GuardDuty, Security Hub, AWS Config, AWS WAF
+**Security & Governance:** IAM, RBAC, KMS, GuardDuty, Security Hub, AWS Config, AWS WAF
 **Containers & Compute:** Docker, Docker Swarm, Amazon ECS, Kubernetes
-**Monitoring & Observability:** CloudWatch, Datadog, Prometheus, Grafana, Splunk
-**Automation & Scripting:** Python, Boto3, Bash, PowerShell, Linux, GitHub Actions, OIDC, AWS CodePipeline, Jenkins, Bitbucket
+**Observability:** CloudWatch, Datadog, Prometheus, Grafana, Splunk
+**Automation & Scripting:** Python, Boto3, Bash, PowerShell, Linux, GitHub Actions, Jenkins, Bitbucket
 **AI Integration:** Amazon Bedrock, Rekognition, Transcribe, Translate, Polly
 
 ---
@@ -27,28 +27,28 @@ AWS Cloud Engineer and US Navy Veteran specializing in secure, highly available 
 
 ### HD SUPPLY | Cloud Infrastructure Engineer (Contract)
 **Jun 2024 – Present**
-- Engineered segmented AWS network foundations including VPCs, public/private subnets, route tables, Transit Gateway, NAT/egress controls, and security group policy to isolate workloads and standardize traffic flow across environments.
-- Managed Route 53 DNS architecture across environments, configuring hosted zones, routing policies, and DNS resolution to support reliable, scalable infrastructure connectivity.
-- Implemented infrastructure security baselines by enforcing KMS encryption, least-privilege IAM role design, and RBAC scoped access patterns to reduce standing privilege and limit blast radius across production workloads.
-- Automated compliance evidence and operational reporting using AWS Lambda and PowerShell, turning Security Hub and Inspector findings into repeatable audit-ready outputs and reducing manual verification effort.
+- Engineered segmented multi-VPC AWS architecture with Transit Gateway centralized routing, enforcing deterministic east-west traffic control and isolating production workloads to reduce cross-environment risk exposure.
+- Standardized Route 53 DNS governance across environments including public/private hosted zone separation and routing policies, improving resolution reliability and eliminating ad hoc DNS sprawl.
+- Established infrastructure security baselines using KMS encryption enforcement, scoped IAM role hierarchies, and RBAC boundaries to reduce standing privilege and minimize blast radius across workloads.
+- Automated compliance reporting workflows using Lambda and PowerShell, converting Security Hub and Inspector findings into structured audit artifacts and reducing manual evidence collection by 60%.
 
 ---
 
 ### LEVELUPINTECH | Cloud Engineer
 **Feb 2024 – Oct 2025**
-- Architected secure multi-tier AWS infrastructure using Terraform Cloud across ALB, Auto Scaling, and RDS with private subnet isolation, identity-scoped security group enforcement, and repeatable IaC convergence across multiple Availability Zones.
-- Designed reusable VPC architectures including subnet segmentation, route tables, NAT gateways, and least-privilege IAM boundaries across structurally isolated beta and production environments.
-- Hardened cloud security posture by implementing KMS encryption, GuardDuty threat detection, and AWS Config rule validation across all provisioned infrastructure tiers.
+- Architected secure multi-tier AWS infrastructure using Terraform Cloud across ALB, Auto Scaling, and RDS with private subnet isolation and repeatable IaC convergence across multiple Availability Zones.
+- Designed reusable VPC patterns with structured subnet segmentation, route table propagation control, and NAT egress standardization to enforce predictable traffic behavior across environments.
+- Hardened security posture with GuardDuty integration, AWS Config rule validation, and KMS encryption standards across compute and storage layers.
 - Integrated managed AI capabilities into cloud infrastructure by provisioning Amazon Bedrock pipelines with throttling-aware fallback logic and DynamoDB persistence across isolated environments.
 
 ---
 
 ### VERIZON | Cloud Support Engineer
 **Jan 2021 – Mar 2024**
-- Operated and supported production AWS infrastructure including EC2, VPC, RDS, S3, and IAM to maintain 99.9% service availability and SLA compliance across enterprise environments.
-- Diagnosed and resolved infrastructure incidents spanning VPC routing, DNS resolution, security group conflicts, and load balancer behavior in partnership with network and security teams.
-- Provisioned and modified cloud resources using Terraform and CloudFormation, applying least-privilege IAM policies and RBAC boundaries across production workloads.
-- Monitored service health using CloudWatch logs and metrics, identifying performance bottlenecks and optimizing resource utilization, reducing incident resolution time by 25%.
+- Operated enterprise AWS production environments supporting high-availability workloads with 99.9%+ SLA adherence across multiple environments.
+- Resolved complex incidents involving VPC routing conflicts, DNS resolution failures, security group misconfigurations, and load balancer inconsistencies, contributing to a 25% MTTR reduction.
+- Executed controlled infrastructure modifications using Terraform and CloudFormation within governed IAM boundaries, ensuring policy-compliant change execution.
+- Implemented CloudWatch monitoring and alerting patterns to detect degradation before customer impact.
 
 ---
 
