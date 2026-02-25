@@ -7,7 +7,7 @@ Providence, RI (Remote-Ready) | willalbertosoto@gmail.com | 857-544-6474 | linke
 
 ## PROFESSIONAL SUMMARY
 
-AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentation, and Terraform-governed change management. Designs highly available, audit-ready environments with centralized routing, identity boundary enforcement, and cloud-native security controls. Known for reliability engineering, drift elimination, controlled infrastructure evolution, and blast-radius reduction at scale.
+AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentation, and Terraform-governed change management. Designs and operates highly available, audit-ready environments with centralized routing, identity boundary enforcement, and production-grade security controls. Known for reliability engineering, drift elimination, controlled change execution, and blast-radius reduction at scale.
 
 ---
 
@@ -17,7 +17,7 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentat
 **Infrastructure as Code:** Terraform (Cloud & Remote State), CloudFormation, Ansible, Packer
 **Security & Governance:** IAM, RBAC, KMS, GuardDuty, Security Hub, AWS Config, AWS WAF
 **Containers & Compute:** Docker, Docker Swarm, Amazon ECS, Kubernetes
-**Observability:** CloudWatch, Datadog, Prometheus, Grafana, Splunk
+**Observability & Operations:** CloudWatch, EventBridge, VPC Flow Logs, Datadog, Prometheus, Grafana, Splunk
 **Automation & Scripting:** Python, Boto3, Bash, PowerShell, Linux, GitHub Actions, Jenkins, Bitbucket
 **AI Integration:** Amazon Bedrock, Rekognition, Transcribe, Translate, Polly
 
@@ -31,7 +31,7 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentat
 - Standardized Route 53 DNS governance across environments including public/private hosted zone separation and routing policies, improving resolution reliability and eliminating ad hoc DNS sprawl.
 - Established enforceable security baselines using KMS encryption standards, scoped IAM role hierarchies, and RBAC boundary controls to minimize standing privilege and contain blast radius.
 - Automated compliance evidence generation using Lambda and PowerShell, converting Security Hub and Inspector findings into structured audit artifacts and reducing manual evidence collection by 60%.
-- Enforced Terraform-based infrastructure convergence to eliminate configuration drift and ensure consistent environment replication across beta and production tiers.
+- Implemented Terraform-driven infrastructure convergence with AWS Config rule validation to eliminate configuration drift across beta and production tiers.
 
 ---
 
@@ -46,10 +46,10 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentat
 
 ### VERIZON | Cloud Support Engineer
 **Jan 2021 – Mar 2024**
-- Operated enterprise AWS production environments supporting high-availability workloads with 99.9%+ SLA adherence across multiple environments.
-- Resolved complex incidents involving VPC routing conflicts, DNS resolution failures, security group misconfigurations, and load balancer inconsistencies, contributing to a 25% MTTR reduction.
+- Operated enterprise AWS production environments sustaining 99.9%+ SLA adherence through CloudWatch alarm strategy, scaling policy optimization, and proactive degradation detection.
+- Reduced MTTR by 25% through log correlation, metric threshold tuning, IAM policy evaluation, and structured incident response workflows.
 - Executed controlled infrastructure modifications using Terraform and CloudFormation within governed IAM boundaries, ensuring policy-compliant change execution.
-- Implemented CloudWatch monitoring and alerting patterns to detect degradation before customer impact.
+- Diagnosed complex routing, DNS resolution, and load balancer health failures using VPC Flow Logs and CloudWatch Insights to restore service integrity.
 
 ---
 
@@ -70,9 +70,9 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentat
 ## CERTIFICATIONS
 
 **AWS Certified Solutions Architect – Associate** | Dec 2025
+**AWS Certified SysOps Administrator – Associate** | Jul 2025
 **AWS Certified AI Practitioner** | Jan 2026
-**Microsoft Certified: Azure Solutions Architect Expert (AZ-305)** | Expected 2026
-**Microsoft Certified: Azure Administrator Associate (AZ-104)** | Jul 2025
+**AWS Certified Security – Specialty** | Expected
 **CompTIA Security+** | Apr 2025
 **CompTIA Network+** | Feb 2026
 **Linux Essentials Certificate (LPI)** | Oct 2025

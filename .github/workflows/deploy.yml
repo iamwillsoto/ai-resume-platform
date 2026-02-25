@@ -69,6 +69,7 @@ jobs:
       DEPLOYMENT_TABLE: DeploymentTracking
       ANALYTICS_TABLE: ResumeAnalytics
       MODEL_ID: anthropic.claude-3-5-sonnet-20240620-v1:0
+      BEDROCK_REGION: us-west-2  # separate region so prod has its own Bedrock token quota
 
     steps:
       - name: Checkout repository
