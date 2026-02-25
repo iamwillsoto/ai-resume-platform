@@ -27,6 +27,7 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentat
 
 ### HD SUPPLY | Cloud Infrastructure Engineer (Contract)
 **Jun 2024 – Present**
+
 - Designed and implemented segmented multi-VPC AWS architecture with Transit Gateway–based centralized routing, enforcing deterministic east-west traffic control and isolating production workloads to reduce cross-environment risk exposure.
 - Standardized Route 53 DNS governance across environments including public/private hosted zone separation and routing policies, improving resolution reliability and eliminating ad hoc DNS sprawl.
 - Established enforceable security baselines using KMS encryption standards, scoped IAM role hierarchies, and RBAC boundary controls to minimize standing privilege and contain blast radius.
@@ -37,6 +38,7 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentat
 
 ### LEVELUPINTECH | Cloud Engineer
 **Feb 2024 – Oct 2024**
+
 - Architected secure multi-tier AWS infrastructure using Terraform Cloud across ALB, Auto Scaling, and RDS with private subnet isolation and repeatable IaC convergence across multiple Availability Zones.
 - Developed reusable VPC modules with structured subnet segmentation, route table propagation control, and standardized NAT egress patterns to enforce predictable traffic behavior.
 - Hardened security posture with GuardDuty integration, AWS Config rule validation, and KMS encryption standards across compute and storage layers.
@@ -46,6 +48,7 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentat
 
 ### VERIZON | Cloud Support Engineer
 **Jan 2021 – Mar 2024**
+
 - Operated enterprise AWS production environments sustaining 99.9%+ SLA adherence through CloudWatch alarm strategy, scaling policy optimization, and proactive degradation detection.
 - Reduced MTTR by 25% through log correlation, metric threshold tuning, IAM policy evaluation, and structured incident response workflows.
 - Executed controlled infrastructure modifications using Terraform and CloudFormation within governed IAM boundaries, ensuring policy-compliant change execution.
@@ -55,6 +58,7 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentat
 
 ### LIFE TIME FITNESS | IT Service Desk Technician
 **Sep 2014 – Aug 2020 | Burlington, MA**
+
 - Escalation point for enterprise identity and access management across 1K+ users and 6 locations, administering Active Directory lifecycle, VPN/SSO authentication, and structured incident and change workflows in ServiceNow.
 - Resolved LAN/WAN connectivity issues including VPN, DNS, DHCP, and endpoint configuration across enterprise infrastructure.
 
@@ -62,6 +66,7 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentat
 
 ### US NAVY | Boatswain's Mate
 **Jan 2010 – Mar 2014 | USS Lake Champlain, San Diego, CA**
+
 - Executed mission-critical operations under strict safety, compliance, and readiness standards in high-risk environments demanding procedural accuracy and rapid decision-making under pressure.
 - Coordinated across engineering, navigation, and command units under chain-of-command governance, enforcing accountability, decisive judgment, and precision in high-stakes environments.
 

@@ -2,27 +2,30 @@
 """
 AI Resume Platform Pipeline (Bedrock-first with deterministic fallback)
 
-Responsibilities (beta deploy):
+Responsibilities:
 - Read resume.md
 - Attempt Bedrock AI Call #1: resume.md -> ATS-friendly HTML
 - Attempt Bedrock AI Call #2: resume.md -> ATS analytics JSON (strict schema)
-- If Bedrock throttles (tokens/day or throttling), fall back to:
-    - deterministic markdown->html
+- If Bedrock is unavailable for any reason, fall back to:
+    - deterministic markdown -> HTML
     - deterministic ATS analytics
+- Inject view-tracking script into generated HTML (fires on page load,
+  calls API Gateway -> Lambda -> ResumeViews DynamoDB table)
 - Upload HTML to S3: s3://<bucket>/<env>/index.html
 - Write DynamoDB records:
     - DeploymentTracking
     - ResumeAnalytics
 
-Environment variables (set by GitHub Actions job env):
-- AWS_REGION              (required)  : region for S3 + DynamoDB
-- BEDROCK_REGION          (optional)  : region for Bedrock; defaults to AWS_REGION
-- BUCKET_NAME             (required)
-- DEPLOYMENT_TABLE        (required)  : DeploymentTracking
-- ANALYTICS_TABLE         (required)  : ResumeAnalytics
-- ENV                     (required)  : beta (or prod later)
-- COMMIT_SHA              (required)
-- MODEL_ID                (required)  : bedrock model ID
+Environment variables (set by GitHub Actions):
+- AWS_REGION          (required) : region for S3 + DynamoDB
+- BEDROCK_REGION      (optional) : region for Bedrock; defaults to AWS_REGION
+- BUCKET_NAME         (required)
+- DEPLOYMENT_TABLE    (required) : DeploymentTracking
+- ANALYTICS_TABLE     (required) : ResumeAnalytics
+- VIEWS_API_URL       (optional) : API Gateway URL for view tracking
+- ENV                 (required) : beta | prod
+- COMMIT_SHA          (required)
+- MODEL_ID            (required) : Bedrock model ID
 """
 
 import json
@@ -74,10 +77,35 @@ def read_text_file(path: str) -> str:
         return f.read()
 
 
+def build_tracking_script(views_api_url: str) -> str:
+    """
+    Returns a <script> block that fires a POST to the view tracker API
+    on page load. Uses keepalive so it completes even if the user
+    navigates away quickly. Errors are silently swallowed so a tracker
+    failure never breaks the resume page.
+    """
+    return (
+        f"\n<script>\n"
+        f"  (function() {{\n"
+        f"    try {{\n"
+        f"      fetch({json.dumps(views_api_url)}, {{\n"
+        f"        method: 'POST',\n"
+        f"        headers: {{'Content-Type': 'application/json'}},\n"
+        f"        body: JSON.stringify({{env: 'prod'}}),\n"
+        f"        keepalive: true\n"
+        f"      }});\n"
+        f"    }} catch (e) {{}}\n"
+        f"  }})();\n"
+        f"</script>\n"
+    )
+
+
+# ----------------------------
+# Inline markdown renderer
+# ----------------------------
 def render_inline(text: str) -> str:
     """
-    Convert inline markdown (bold, italic) to HTML after escaping raw text.
-    Order matters: escape first, then apply inline tags.
+    Convert inline markdown (bold, italic, code) to HTML after escaping.
     """
     text = (
         text.replace("&", "&amp;")
@@ -86,27 +114,23 @@ def render_inline(text: str) -> str:
             .replace('"', "&quot;")
             .replace("'", "&#39;")
     )
-    # Bold+italic: ***text*** or ___text___
     text = re.sub(r"\*\*\*(.*?)\*\*\*", r"<strong><em>\1</em></strong>", text)
     text = re.sub(r"___(.*?)___", r"<strong><em>\1</em></strong>", text)
-    # Bold: **text** or __text__
     text = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", text)
     text = re.sub(r"__(.*?)__", r"<strong>\1</strong>", text)
-    # Italic: *text* or _text_
     text = re.sub(r"\*(.*?)\*", r"<em>\1</em>", text)
     text = re.sub(r"_(.*?)_", r"<em>\1</em>", text)
-    # Inline code: `code`
     text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
     return text
 
 
-def md_to_basic_html(md: str) -> str:
+def md_to_basic_html(md: str, views_api_url: str = "") -> str:
     """
-    Deterministic HTML rendering (ATS-friendly, no dependencies).
+    Deterministic ATS-friendly HTML renderer. No external dependencies.
     Handles: h1/h2/h3, ul/li, hr, bold, italic, inline code, paragraphs.
+    Injects view tracking script if views_api_url is provided.
     """
     lines = [ln.rstrip() for ln in md.splitlines()]
-
     html_parts: List[str] = []
     in_ul = False
 
@@ -117,16 +141,13 @@ def md_to_basic_html(md: str) -> str:
             in_ul = False
 
     for ln in lines:
-        # Horizontal rule: --- or ***
         if re.match(r"^\s*[-*]{3,}\s*$", ln):
             close_ul()
             html_parts.append("<hr>")
             continue
-
         if not ln.strip():
             close_ul()
             continue
-
         if ln.startswith("# "):
             close_ul()
             html_parts.append(f"<h1>{render_inline(ln[2:].strip())}</h1>")
@@ -159,30 +180,44 @@ def md_to_basic_html(md: str) -> str:
     code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-size: 12px; }
     strong { font-weight: 600; }
     """
+
+    tracking = build_tracking_script(views_api_url) if views_api_url else ""
+
     return (
         "<!doctype html><html lang='en'><head><meta charset='utf-8'>"
         "<meta name='viewport' content='width=device-width, initial-scale=1'>"
         f"<title>Will Soto | AWS Cloud Engineer</title><style>{css}</style></head>"
-        f"<body>{''.join(html_parts)}</body></html>"
+        f"<body>{''.join(html_parts)}{tracking}</body></html>"
     )
 
 
-def escape_html(s: str) -> str:
-    # Kept for compatibility — use render_inline() for full markdown support
-    return (
-        s.replace("&", "&amp;")
-        .replace("<", "&lt;")
-        .replace(">", "&gt;")
-        .replace('"', "&quot;")
-        .replace("'", "&#39;")
-    )
+def sanitize_html(html: str, views_api_url: str = "") -> str:
+    """
+    Strip markdown fences from Bedrock HTML output and inject view tracker.
+    """
+    html = html.strip()
+    html = re.sub(r"^```(?:html)?\s*", "", html, flags=re.IGNORECASE)
+    html = re.sub(r"\s*```$", "", html)
+    html = clamp_text(html, max_chars=120000)
+
+    if views_api_url:
+        tracking = build_tracking_script(views_api_url)
+        if "</body>" in html:
+            html = html.replace("</body>", f"{tracking}</body>")
+        else:
+            html += tracking
+
+    return html
 
 
+# ----------------------------
+# ATS analytics (deterministic fallback)
+# ----------------------------
 def basic_ats_analysis(md: str) -> Dict[str, Any]:
     """
-    Deterministic, rubric-aligned analytics payload for fallback.
-    FIX: Summary detection now matches both 'PROFESSIONAL SUMMARY' and 'Summary'
-         so it is not incorrectly flagged as missing.
+    Deterministic ATS scoring for fallback path.
+    Matches both '## Summary' and '## PROFESSIONAL SUMMARY' so Summary
+    is never incorrectly flagged as missing.
     """
     words = re.findall(r"\b\w+\b", md)
     word_count = len(words)
@@ -191,7 +226,6 @@ def basic_ats_analysis(md: str) -> Dict[str, Any]:
         return bool(re.search(rf"(?im)^##\s+{re.escape(name)}\b", md))
 
     sections = {
-        # FIX: match both '## Summary' and '## PROFESSIONAL SUMMARY'
         "Summary": bool(re.search(r"(?im)^##\s+(professional\s+)?summary\b", md)),
         "Skills": has_section("Skills"),
         "Projects": has_section("Projects"),
@@ -201,20 +235,14 @@ def basic_ats_analysis(md: str) -> Dict[str, Any]:
     }
     missing_sections = [k for k, v in sections.items() if not v]
 
-    # Simple ATS score heuristic (0-100). Good enough for fallback.
     score = 60
-    if word_count >= 350:
-        score += 10
-    else:
-        score -= 5
-
+    score += 10 if word_count >= 350 else -5
     score += 10 if sections["Skills"] else -10
     score += 10 if sections["Experience"] else -10
     score += 5 if sections["Projects"] else -5
     score -= min(15, 3 * len(missing_sections))
     score = max(0, min(100, score))
 
-    # Keyword extraction (top unique words length>=4)
     freq: Dict[str, int] = {}
     for w in words:
         w2 = w.lower()
@@ -223,13 +251,11 @@ def basic_ats_analysis(md: str) -> Dict[str, Any]:
         freq[w2] = freq.get(w2, 0) + 1
     keywords = sorted(freq.keys(), key=lambda k: freq[k], reverse=True)[:15]
 
-    readability = "Good" if word_count >= 350 else "Fair"
-
     return {
         "word_count": int(word_count),
         "ats_score": int(score),
         "keywords": keywords,
-        "readability": readability,
+        "readability": "Good" if word_count >= 350 else "Fair",
         "missing_sections": missing_sections,
     }
 
@@ -240,7 +266,6 @@ def validate_analytics(obj: Dict[str, Any]) -> Dict[str, Any]:
             raise ValueError(f"Analytics missing required key: {k}")
         if not isinstance(obj[k], t):
             raise ValueError(f"Analytics key '{k}' expected type {t.__name__}")
-    # normalize keyword items
     obj["keywords"] = [str(x) for x in obj["keywords"]][:50]
     obj["missing_sections"] = [str(x) for x in obj["missing_sections"]][:50]
     obj["word_count"] = int(obj["word_count"])
@@ -250,7 +275,7 @@ def validate_analytics(obj: Dict[str, Any]) -> Dict[str, Any]:
 
 
 # ----------------------------
-# Bedrock invocation (Bedrock-first)
+# Bedrock invocation
 # ----------------------------
 def bedrock_invoke_text(
     *,
@@ -262,12 +287,7 @@ def bedrock_invoke_text(
     retries: int = 1,
     backoff_seconds: float = 2.0,
 ) -> str:
-    """
-    Calls bedrock-runtime InvokeModel. Includes minimal retry/backoff
-    (we avoid aggressive retries to reduce throttling).
-    """
     client = boto3.client("bedrock-runtime", region_name=bedrock_region)
-
     body = {
         "anthropic_version": "bedrock-2023-05-31",
         "max_tokens": max_tokens,
@@ -284,81 +304,43 @@ def bedrock_invoke_text(
                 accept="application/json",
                 contentType="application/json",
             )
-            raw = resp["body"].read().decode("utf-8")
-            data = json.loads(raw)
-
-            # Anthropic response shape:
-            # { "content": [ { "type": "text", "text": "..." } ], ... }
-            content = data.get("content", [])
-            texts = []
-            for item in content:
-                if isinstance(item, dict) and item.get("type") == "text":
-                    texts.append(item.get("text", ""))
-            return "\n".join(texts).strip()
-
+            data = json.loads(resp["body"].read().decode("utf-8"))
+            return "\n".join(
+                item.get("text", "")
+                for item in data.get("content", [])
+                if isinstance(item, dict) and item.get("type") == "text"
+            ).strip()
         except Exception as e:
             last_err = e
             if attempt < retries:
                 time.sleep(backoff_seconds * (attempt + 1))
-                continue
-            break
-
     raise last_err if last_err else RuntimeError("Unknown Bedrock error")
 
 
 def is_bedrock_fallback_error(e: Exception) -> bool:
     """
-    FIX: Broadened from throttling-only to catch all Bedrock failures that
-    should trigger graceful fallback instead of crashing the pipeline.
-    Covers: throttling, token limits, access denied (model not enabled in
-    region), and validation errors.
+    Returns True for any Bedrock error that should trigger graceful fallback
+    rather than crashing the pipeline. Covers throttling, quota exhaustion,
+    model not enabled in region, service errors, and timeouts.
     """
     msg = str(e)
-
-    # Throttling and token quota
-    if "ThrottlingException" in msg:
+    fallback_strings = [
+        "ThrottlingException",
+        "Too many tokens per day",
+        "AccessDeniedException",
+        "ValidationException",
+        "ResourceNotFoundException",
+        "ServiceUnavailableException",
+        "InternalServerException",
+        "ModelErrorException",
+        "ModelTimeoutException",
+    ]
+    if any(s in msg for s in fallback_strings):
         return True
-    if "Too many tokens per day" in msg:
-        return True
-
-    # Model not enabled in this region (AccessDeniedException)
-    if "AccessDeniedException" in msg:
-        return True
-
-    # Model ID not valid for region or malformed request
-    if "ValidationException" in msg:
-        return True
-
-    # Model not found / not available in region
-    if "ResourceNotFoundException" in msg:
-        return True
-
-    # Service unavailable / internal Bedrock errors
-    if "ServiceUnavailableException" in msg:
-        return True
-    if "InternalServerException" in msg:
-        return True
-    if "ModelErrorException" in msg:
-        return True
-    if "ModelTimeoutException" in msg:
-        return True
-
-    # ClientError structured codes
     if isinstance(e, ClientError):
         code = e.response.get("Error", {}).get("Code", "")
-        if code in {
-            "ThrottlingException",
-            "TooManyRequestsException",
-            "AccessDeniedException",
-            "ValidationException",
-            "ResourceNotFoundException",
-            "ServiceUnavailableException",
-            "InternalServerException",
-            "ModelErrorException",
-            "ModelTimeoutException",
-        }:
+        if code in set(fallback_strings) | {"TooManyRequestsException"}:
             return True
-
     return False
 
 
@@ -393,7 +375,6 @@ def build_ats_json_prompt(resume_md: str) -> str:
         "Guidance:\n"
         "- ats_score must be 0-100 integer\n"
         "- keywords: 10-20 items\n"
-        # FIX: explicitly tell Bedrock that PROFESSIONAL SUMMARY satisfies Summary
         "- missing_sections: list any missing standard sections. "
         "Note: 'PROFESSIONAL SUMMARY' fully satisfies the Summary section requirement. "
         "Do NOT flag Summary as missing if a PROFESSIONAL SUMMARY section is present.\n\n"
@@ -401,23 +382,12 @@ def build_ats_json_prompt(resume_md: str) -> str:
     )
 
 
-def sanitize_html(html: str) -> str:
-    html = html.strip()
-    html = re.sub(r"^```(?:html)?\s*", "", html, flags=re.IGNORECASE)
-    html = re.sub(r"\s*```$", "", html)
-    return clamp_text(html, max_chars=120000)
-
-
 def extract_json(text: str) -> Dict[str, Any]:
-    """
-    Extract first JSON object from a string (AI sometimes wraps output).
-    """
     text = text.strip()
     try:
         return json.loads(text)
     except Exception:
         pass
-
     m = re.search(r"\{.*\}", text, flags=re.DOTALL)
     if not m:
         raise ValueError("No JSON object found in AI output")
@@ -425,7 +395,7 @@ def extract_json(text: str) -> Dict[str, Any]:
 
 
 # ----------------------------
-# AWS writes: S3 + DynamoDB
+# AWS writes
 # ----------------------------
 def upload_html_to_s3(region: str, bucket: str, env: str, html: str) -> str:
     s3 = boto3.client("s3", region_name=region)
@@ -437,7 +407,7 @@ def upload_html_to_s3(region: str, bucket: str, env: str, html: str) -> str:
         ContentType="text/html; charset=utf-8",
         CacheControl="no-cache",
     )
-    return f"http://{bucket}.s3-website-{region}.amazonaws.com/{key}"
+    return f"https://{bucket}.s3.amazonaws.com/{key}"
 
 
 def put_deployment_tracking(
@@ -450,8 +420,7 @@ def put_deployment_tracking(
     s3_url: str,
     model_used: str,
 ) -> None:
-    ddb = boto3.resource("dynamodb", region_name=region).Table(table_name)
-    ddb.put_item(
+    boto3.resource("dynamodb", region_name=region).Table(table_name).put_item(
         Item={
             "deployment_id": deployment_id,
             "commit_sha": commit_sha,
@@ -473,8 +442,7 @@ def put_resume_analytics(
     model_used: str,
     analytics: Dict[str, Any],
 ) -> None:
-    ddb = boto3.resource("dynamodb", region_name=region).Table(table_name)
-    ddb.put_item(
+    boto3.resource("dynamodb", region_name=region).Table(table_name).put_item(
         Item={
             "analysis_id": analytics_id,
             "commit_sha": commit_sha,
@@ -496,54 +464,46 @@ def put_resume_analytics(
 def main() -> int:
     region = require_env("AWS_REGION")
     bedrock_region = os.getenv("BEDROCK_REGION", region)
-
     bucket = require_env("BUCKET_NAME")
     deployment_table = require_env("DEPLOYMENT_TABLE")
     analytics_table = require_env("ANALYTICS_TABLE")
-
+    views_api_url = os.getenv("VIEWS_API_URL", "")
     env = require_env("ENV")
     commit_sha = require_env("COMMIT_SHA")
     model_id = require_env("MODEL_ID")
 
     resume_md = clamp_text(read_text_file("resume.md"), max_chars=12000)
-
     deployment_id = str(uuid.uuid4())
     analytics_id = str(uuid.uuid4())
-
     used_model = model_id
     used_fallback = False
     fallback_reason = None
 
-    # Bedrock-first
+    # Bedrock-first: attempt AI HTML rendering + ATS analysis
     try:
-        html_prompt = build_html_prompt(resume_md)
         html_raw = bedrock_invoke_text(
             bedrock_region=bedrock_region,
             model_id=model_id,
-            prompt=html_prompt,
+            prompt=build_html_prompt(resume_md),
             max_tokens=4000,
             temperature=0.2,
             retries=1,
             backoff_seconds=2.0,
         )
-        html = sanitize_html(html_raw)
+        html = sanitize_html(html_raw, views_api_url=views_api_url)
 
-        json_prompt = build_ats_json_prompt(resume_md)
         ats_raw = bedrock_invoke_text(
             bedrock_region=bedrock_region,
             model_id=model_id,
-            prompt=json_prompt,
+            prompt=build_ats_json_prompt(resume_md),
             max_tokens=350,
             temperature=0.1,
             retries=1,
             backoff_seconds=2.0,
         )
-        ats_obj = extract_json(ats_raw)
-        ats = validate_analytics(ats_obj)
+        ats = validate_analytics(extract_json(ats_raw))
 
     except Exception as e:
-        # FIX: broadened fallback — any Bedrock failure degrades gracefully
-        # instead of crashing the pipeline mid-execution after deployment write
         if is_bedrock_fallback_error(e):
             fallback_reason = type(e).__name__
             print(
@@ -553,7 +513,7 @@ def main() -> int:
             )
             used_model = "fallback-deterministic"
             used_fallback = True
-            html = md_to_basic_html(resume_md)
+            html = md_to_basic_html(resume_md, views_api_url=views_api_url)
             ats = validate_analytics(basic_ats_analysis(resume_md))
         else:
             raise
@@ -561,7 +521,7 @@ def main() -> int:
     # Upload HTML to S3
     s3_url = upload_html_to_s3(region=region, bucket=bucket, env=env, html=html)
 
-    # Write DynamoDB records
+    # Write deployment record
     put_deployment_tracking(
         region=region,
         table_name=deployment_table,
@@ -573,6 +533,7 @@ def main() -> int:
         model_used=used_model,
     )
 
+    # Write analytics record
     put_resume_analytics(
         region=region,
         table_name=analytics_table,
@@ -596,6 +557,7 @@ def main() -> int:
                 "used_fallback": used_fallback,
                 "fallback_reason": fallback_reason,
                 "bedrock_region": bedrock_region,
+                "view_tracking": bool(views_api_url),
             },
             indent=2,
         )

@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: AI Resume Platform - S3 (public, versioned) + DynamoDB tables
+Description: AI Resume Platform - S3 + DynamoDB + Lambda view tracker + API Gateway
 
 Parameters:
   BucketName:
@@ -7,6 +7,10 @@ Parameters:
     Description: Globally unique S3 bucket name for resume hosting
 
 Resources:
+
+  # -------------------------------------------------------
+  # S3 — public static website hosting with versioning
+  # -------------------------------------------------------
   ResumeSiteBucket:
     Type: AWS::S3::Bucket
     Properties:
@@ -35,6 +39,9 @@ Resources:
             Action: s3:GetObject
             Resource: !Sub "${ResumeSiteBucket.Arn}/*"
 
+  # -------------------------------------------------------
+  # DynamoDB — deployment tracking
+  # -------------------------------------------------------
   DeploymentTrackingTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -47,6 +54,9 @@ Resources:
         - AttributeName: deployment_id
           KeyType: HASH
 
+  # -------------------------------------------------------
+  # DynamoDB — ATS resume analytics
+  # -------------------------------------------------------
   ResumeAnalyticsTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -59,16 +69,164 @@ Resources:
         - AttributeName: analysis_id
           KeyType: HASH
 
+  # -------------------------------------------------------
+  # DynamoDB — resume page view tracking
+  # -------------------------------------------------------
+  ResumeViewsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ResumeViews
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: view_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: view_id
+          KeyType: HASH
+
+  # -------------------------------------------------------
+  # IAM — Lambda execution role for view tracker
+  # -------------------------------------------------------
+  ResumeViewsLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: ResumeViewsLambdaRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: ResumeViewsPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:PutItem
+                Resource: !GetAtt ResumeViewsTable.Arn
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "*"
+
+  # -------------------------------------------------------
+  # Lambda — view tracker function
+  # -------------------------------------------------------
+  ResumeViewsFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: ResumeViewsTracker
+      Runtime: python3.12
+      Handler: index.handler
+      Role: !GetAtt ResumeViewsLambdaRole.Arn
+      Timeout: 10
+      Environment:
+        Variables:
+          TABLE_NAME: ResumeViews
+      Code:
+        ZipFile: |
+          import boto3
+          import json
+          import os
+          import uuid
+          from datetime import datetime, timezone
+
+          def handler(event, context):
+              ddb = boto3.resource("dynamodb").Table(os.environ["TABLE_NAME"])
+              headers = event.get("headers") or {}
+
+              ddb.put_item(Item={
+                  "view_id": str(uuid.uuid4()),
+                  "timestamp": datetime.now(timezone.utc).isoformat(),
+                  "environment": "prod",
+                  "user_agent": headers.get("user-agent", "unknown")[:500],
+                  "referrer": headers.get("referer", "direct")[:500],
+              })
+
+              return {
+                  "statusCode": 200,
+                  "headers": {
+                      "Access-Control-Allow-Origin": "*",
+                      "Access-Control-Allow-Methods": "POST,OPTIONS",
+                  },
+                  "body": json.dumps({"status": "ok"})
+              }
+
+  # -------------------------------------------------------
+  # API Gateway — HTTP API for view tracker
+  # -------------------------------------------------------
+  ResumeViewsApi:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: ResumeViewsApi
+      ProtocolType: HTTP
+      CorsConfiguration:
+        AllowOrigins:
+          - "*"
+        AllowMethods:
+          - POST
+          - OPTIONS
+        AllowHeaders:
+          - Content-Type
+
+  ResumeViewsIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref ResumeViewsApi
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !Sub
+        arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ResumeViewsFunction.Arn}/invocations
+      PayloadFormatVersion: "2.0"
+
+  ResumeViewsRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref ResumeViewsApi
+      RouteKey: "POST /view"
+      Target: !Sub "integrations/${ResumeViewsIntegration}"
+
+  ResumeViewsStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref ResumeViewsApi
+      StageName: "$default"
+      AutoDeploy: true
+
+  ResumeViewsLambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref ResumeViewsFunction
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ResumeViewsApi}/*/*/view"
+
+# -------------------------------------------------------
+# Outputs
+# -------------------------------------------------------
 Outputs:
   BucketNameOut:
     Value: !Ref ResumeSiteBucket
 
   WebsiteURL:
     Value: !GetAtt ResumeSiteBucket.WebsiteURL
-    Description: S3 static website URL (renders HTML in browser)
+    Description: S3 static website URL
 
   DeploymentTrackingTableName:
     Value: !Ref DeploymentTrackingTable
 
   ResumeAnalyticsTableName:
     Value: !Ref ResumeAnalyticsTable
+
+  ResumeViewsTableName:
+    Value: !Ref ResumeViewsTable
+
+  ResumeViewsApiUrl:
+    Value: !Sub "https://${ResumeViewsApi}.execute-api.${AWS::Region}.amazonaws.com/view"
+    Description: API Gateway endpoint for resume page view tracking
+    Export:
+      Name: ResumeViewsApiUrl

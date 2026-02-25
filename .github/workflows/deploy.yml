@@ -7,6 +7,10 @@ on:
       - main
 
 jobs:
+
+  # -------------------------------------------------------
+  # BETA — triggered on push to beta branch
+  # -------------------------------------------------------
   deploy_beta:
     if: github.ref == 'refs/heads/beta'
     runs-on: ubuntu-latest
@@ -61,6 +65,13 @@ jobs:
           echo "- Environment: beta" >> $GITHUB_STEP_SUMMARY
           echo "- URL: https://${BUCKET_NAME}.s3.amazonaws.com/beta/index.html" >> $GITHUB_STEP_SUMMARY
 
+  # -------------------------------------------------------
+  # PROD — triggered on push to main branch
+  # Uses separate Bedrock region (us-west-2) so prod has
+  # its own token quota independent of beta runs.
+  # Fetches Views API URL from CloudFormation outputs and
+  # injects view tracking into the generated HTML.
+  # -------------------------------------------------------
   deploy_prod:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -69,7 +80,7 @@ jobs:
       DEPLOYMENT_TABLE: DeploymentTracking
       ANALYTICS_TABLE: ResumeAnalytics
       MODEL_ID: anthropic.claude-3-5-sonnet-20240620-v1:0
-      BEDROCK_REGION: us-west-2  # separate region so prod has its own Bedrock token quota
+      BEDROCK_REGION: us-west-2
 
     steps:
       - name: Checkout repository
@@ -89,6 +100,14 @@ jobs:
             --template-file infra/template.yaml \
             --parameter-overrides BucketName=${BUCKET_NAME} \
             --capabilities CAPABILITY_NAMED_IAM
+
+      - name: Get Views API URL from CloudFormation
+        run: |
+          VIEWS_API_URL=$(aws cloudformation describe-stacks \
+            --stack-name ai-resume-platform \
+            --query "Stacks[0].Outputs[?OutputKey=='ResumeViewsApiUrl'].OutputValue" \
+            --output text)
+          echo "VIEWS_API_URL=$VIEWS_API_URL" >> $GITHUB_ENV
 
       - name: Set up Python
         uses: actions/setup-python@v5
