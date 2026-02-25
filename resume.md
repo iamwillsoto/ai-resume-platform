@@ -1,5 +1,5 @@
 # WILL SOTO
-**Cloud Infrastructure Engineer | US Navy Veteran**
+**AWS Cloud Engineer | US Navy Veteran**
 
 Providence, RI (Remote-Ready) | willalbertosoto@gmail.com | 857-544-6474 | linkedin.com/in/wilmeralberto | github.com/iamwillsoto
 
@@ -7,7 +7,7 @@ Providence, RI (Remote-Ready) | willalbertosoto@gmail.com | 857-544-6474 | linke
 
 ## PROFESSIONAL SUMMARY
 
-Cloud Infrastructure Engineer specializing in enterprise AWS platforms, multi-VPC segmentation, and Terraform-governed change management. Designs highly available, audit-ready environments with centralized routing, identity boundary enforcement, and cloud-native security controls. Known for reliability engineering, drift elimination, controlled infrastructure evolution, and blast-radius reduction at scale.
+AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentation, and Terraform-governed change management. Designs highly available, audit-ready environments with centralized routing, identity boundary enforcement, and cloud-native security controls. Known for reliability engineering, drift elimination, controlled infrastructure evolution, and blast-radius reduction at scale.
 
 ---
 
@@ -27,7 +27,7 @@ Cloud Infrastructure Engineer specializing in enterprise AWS platforms, multi-VP
 
 ### HD SUPPLY | Cloud Infrastructure Engineer (Contract)
 **Jun 2024 – Present**
-- Designed and implemented segmented multi-VPC AWS architecture with Transit Gateway centralized routing, enforcing deterministic east-west traffic control and isolating production workloads to reduce cross-environment risk exposure.
+- Designed and implemented segmented multi-VPC AWS architecture with Transit Gateway–based centralized routing, enforcing deterministic east-west traffic control and isolating production workloads to reduce cross-environment risk exposure.
 - Standardized Route 53 DNS governance across environments including public/private hosted zone separation and routing policies, improving resolution reliability and eliminating ad hoc DNS sprawl.
 - Established enforceable security baselines using KMS encryption standards, scoped IAM role hierarchies, and RBAC boundary controls to minimize standing privilege and contain blast radius.
 - Automated compliance evidence generation using Lambda and PowerShell, converting Security Hub and Inspector findings into structured audit artifacts and reducing manual evidence collection by 60%.
