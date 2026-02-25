@@ -7,14 +7,14 @@ Providence, RI (Remote-Ready) | willalbertosoto@gmail.com | 857-544-6474 | linke
 
 ## PROFESSIONAL SUMMARY
 
-Cloud Infrastructure Engineer focused on enterprise AWS platforms, network segmentation, and IaC-governed change. Builds audit-ready environments with deterministic routing, identity boundary enforcement, and cloud-native security controls. Known for reliability engineering, drift elimination, controlled change execution, and blast-radius reduction at scale.
+Cloud Infrastructure Engineer specializing in enterprise AWS platforms, multi-VPC segmentation, and Terraform-governed change management. Designs highly available, audit-ready environments with centralized routing, identity boundary enforcement, and cloud-native security controls. Known for reliability engineering, drift elimination, controlled infrastructure evolution, and blast-radius reduction at scale.
 
 ---
 
 ## SKILLS
 
-**AWS Infrastructure:** VPC, Transit Gateway, Route 53, ALB, Auto Scaling, EC2, RDS, S3, Lambda, API Gateway, DynamoDB
-**Infrastructure as Code:** Terraform, Terraform Cloud, CloudFormation, Ansible, Packer
+**AWS Infrastructure:** VPC, Transit Gateway, Route 53, ALB, Auto Scaling, EC2, RDS (Multi-AZ), S3, Lambda, API Gateway, DynamoDB
+**Infrastructure as Code:** Terraform (Cloud & Remote State), CloudFormation, Ansible, Packer
 **Security & Governance:** IAM, RBAC, KMS, GuardDuty, Security Hub, AWS Config, AWS WAF
 **Containers & Compute:** Docker, Docker Swarm, Amazon ECS, Kubernetes
 **Observability:** CloudWatch, Datadog, Prometheus, Grafana, Splunk
@@ -27,17 +27,18 @@ Cloud Infrastructure Engineer focused on enterprise AWS platforms, network segme
 
 ### HD SUPPLY | Cloud Infrastructure Engineer (Contract)
 **Jun 2024 – Present**
-- Engineered segmented multi-VPC AWS architecture with Transit Gateway centralized routing, enforcing deterministic east-west traffic control and isolating production workloads to reduce cross-environment risk exposure.
+- Designed and implemented segmented multi-VPC AWS architecture with Transit Gateway centralized routing, enforcing deterministic east-west traffic control and isolating production workloads to reduce cross-environment risk exposure.
 - Standardized Route 53 DNS governance across environments including public/private hosted zone separation and routing policies, improving resolution reliability and eliminating ad hoc DNS sprawl.
-- Established infrastructure security baselines using KMS encryption enforcement, scoped IAM role hierarchies, and RBAC boundaries to reduce standing privilege and minimize blast radius across workloads.
-- Automated compliance reporting workflows using Lambda and PowerShell, converting Security Hub and Inspector findings into structured audit artifacts and reducing manual evidence collection by 60%.
+- Established enforceable security baselines using KMS encryption standards, scoped IAM role hierarchies, and RBAC boundary controls to minimize standing privilege and contain blast radius.
+- Automated compliance evidence generation using Lambda and PowerShell, converting Security Hub and Inspector findings into structured audit artifacts and reducing manual evidence collection by 60%.
+- Enforced Terraform-based infrastructure convergence to eliminate configuration drift and ensure consistent environment replication across beta and production tiers.
 
 ---
 
 ### LEVELUPINTECH | Cloud Engineer
-**Feb 2024 – Oct 2025**
+**Feb 2024 – Oct 2024**
 - Architected secure multi-tier AWS infrastructure using Terraform Cloud across ALB, Auto Scaling, and RDS with private subnet isolation and repeatable IaC convergence across multiple Availability Zones.
-- Designed reusable VPC patterns with structured subnet segmentation, route table propagation control, and NAT egress standardization to enforce predictable traffic behavior across environments.
+- Developed reusable VPC modules with structured subnet segmentation, route table propagation control, and standardized NAT egress patterns to enforce predictable traffic behavior.
 - Hardened security posture with GuardDuty integration, AWS Config rule validation, and KMS encryption standards across compute and storage layers.
 - Integrated managed AI capabilities into cloud infrastructure by provisioning Amazon Bedrock pipelines with throttling-aware fallback logic and DynamoDB persistence across isolated environments.
 
