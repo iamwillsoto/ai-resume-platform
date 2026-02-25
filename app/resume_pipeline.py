@@ -306,16 +306,59 @@ def bedrock_invoke_text(
     raise last_err if last_err else RuntimeError("Unknown Bedrock error")
 
 
-def is_throttling_error(e: Exception) -> bool:
+def is_bedrock_fallback_error(e: Exception) -> bool:
+    """
+    FIX: Broadened from throttling-only to catch all Bedrock failures that
+    should trigger graceful fallback instead of crashing the pipeline.
+    Covers: throttling, token limits, access denied (model not enabled in
+    region), and validation errors.
+    """
     msg = str(e)
+
+    # Throttling and token quota
     if "ThrottlingException" in msg:
         return True
     if "Too many tokens per day" in msg:
         return True
+
+    # Model not enabled in this region (AccessDeniedException)
+    if "AccessDeniedException" in msg:
+        return True
+
+    # Model ID not valid for region or malformed request
+    if "ValidationException" in msg:
+        return True
+
+    # Model not found / not available in region
+    if "ResourceNotFoundException" in msg:
+        return True
+
+    # Service unavailable / internal Bedrock errors
+    if "ServiceUnavailableException" in msg:
+        return True
+    if "InternalServerException" in msg:
+        return True
+    if "ModelErrorException" in msg:
+        return True
+    if "ModelTimeoutException" in msg:
+        return True
+
+    # ClientError structured codes
     if isinstance(e, ClientError):
         code = e.response.get("Error", {}).get("Code", "")
-        if code in {"ThrottlingException", "TooManyRequestsException"}:
+        if code in {
+            "ThrottlingException",
+            "TooManyRequestsException",
+            "AccessDeniedException",
+            "ValidationException",
+            "ResourceNotFoundException",
+            "ServiceUnavailableException",
+            "InternalServerException",
+            "ModelErrorException",
+            "ModelTimeoutException",
+        }:
             return True
+
     return False
 
 
@@ -469,6 +512,7 @@ def main() -> int:
 
     used_model = model_id
     used_fallback = False
+    fallback_reason = None
 
     # Bedrock-first
     try:
@@ -498,9 +542,12 @@ def main() -> int:
         ats = validate_analytics(ats_obj)
 
     except Exception as e:
-        if is_throttling_error(e):
+        # FIX: broadened fallback — any Bedrock failure degrades gracefully
+        # instead of crashing the pipeline mid-execution after deployment write
+        if is_bedrock_fallback_error(e):
+            fallback_reason = type(e).__name__
             print(
-                "WARN: Bedrock throttled (tokens/day or throttling). "
+                f"WARN: Bedrock unavailable ({fallback_reason}: {e}). "
                 "Falling back to deterministic rendering/analytics.",
                 file=sys.stderr,
             )
@@ -547,6 +594,7 @@ def main() -> int:
                 "analysis_id": analytics_id,
                 "model_used": used_model,
                 "used_fallback": used_fallback,
+                "fallback_reason": fallback_reason,
                 "bedrock_region": bedrock_region,
             },
             indent=2,
