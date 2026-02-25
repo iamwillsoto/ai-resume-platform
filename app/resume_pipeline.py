@@ -181,6 +181,8 @@ def escape_html(s: str) -> str:
 def basic_ats_analysis(md: str) -> Dict[str, Any]:
     """
     Deterministic, rubric-aligned analytics payload for fallback.
+    FIX: Summary detection now matches both 'PROFESSIONAL SUMMARY' and 'Summary'
+         so it is not incorrectly flagged as missing.
     """
     words = re.findall(r"\b\w+\b", md)
     word_count = len(words)
@@ -189,7 +191,8 @@ def basic_ats_analysis(md: str) -> Dict[str, Any]:
         return bool(re.search(rf"(?im)^##\s+{re.escape(name)}\b", md))
 
     sections = {
-        "Summary": has_section("Summary"),
+        # FIX: match both '## Summary' and '## PROFESSIONAL SUMMARY'
+        "Summary": bool(re.search(r"(?im)^##\s+(professional\s+)?summary\b", md)),
         "Skills": has_section("Skills"),
         "Projects": has_section("Projects"),
         "Experience": has_section("Experience"),
@@ -260,11 +263,11 @@ def bedrock_invoke_text(
     backoff_seconds: float = 2.0,
 ) -> str:
     """
-    Calls bedrock-runtime InvokeModel. Includes minimal retry/backoff (we avoid aggressive retries to reduce throttling).
+    Calls bedrock-runtime InvokeModel. Includes minimal retry/backoff
+    (we avoid aggressive retries to reduce throttling).
     """
     client = boto3.client("bedrock-runtime", region_name=bedrock_region)
 
-    # Bedrock request format varies by provider. This payload works for Anthropic Claude in Bedrock.
     body = {
         "anthropic_version": "bedrock-2023-05-31",
         "max_tokens": max_tokens,
@@ -309,7 +312,6 @@ def is_throttling_error(e: Exception) -> bool:
         return True
     if "Too many tokens per day" in msg:
         return True
-    # ClientError sometimes contains structured code
     if isinstance(e, ClientError):
         code = e.response.get("Error", {}).get("Code", "")
         if code in {"ThrottlingException", "TooManyRequestsException"}:
@@ -318,7 +320,7 @@ def is_throttling_error(e: Exception) -> bool:
 
 
 # ----------------------------
-# Prompts (keep tight to reduce tokens)
+# Prompts
 # ----------------------------
 def build_html_prompt(resume_md: str) -> str:
     return (
@@ -348,13 +350,15 @@ def build_ats_json_prompt(resume_md: str) -> str:
         "Guidance:\n"
         "- ats_score must be 0-100 integer\n"
         "- keywords: 10-20 items\n"
-        "- missing_sections: list any missing standard sections\n\n"
+        # FIX: explicitly tell Bedrock that PROFESSIONAL SUMMARY satisfies Summary
+        "- missing_sections: list any missing standard sections. "
+        "Note: 'PROFESSIONAL SUMMARY' fully satisfies the Summary section requirement. "
+        "Do NOT flag Summary as missing if a PROFESSIONAL SUMMARY section is present.\n\n"
         f"RESUME_MARKDOWN:\n{resume_md}\n"
     )
 
 
 def sanitize_html(html: str) -> str:
-    # Hard clamp and strip any accidental code fences
     html = html.strip()
     html = re.sub(r"^```(?:html)?\s*", "", html, flags=re.IGNORECASE)
     html = re.sub(r"\s*```$", "", html)
@@ -366,13 +370,11 @@ def extract_json(text: str) -> Dict[str, Any]:
     Extract first JSON object from a string (AI sometimes wraps output).
     """
     text = text.strip()
-    # direct json
     try:
         return json.loads(text)
     except Exception:
         pass
 
-    # find first {...}
     m = re.search(r"\{.*\}", text, flags=re.DOTALL)
     if not m:
         raise ValueError("No JSON object found in AI output")
@@ -392,7 +394,6 @@ def upload_html_to_s3(region: str, bucket: str, env: str, html: str) -> str:
         ContentType="text/html; charset=utf-8",
         CacheControl="no-cache",
     )
-    # Use S3 website endpoint so browsers render HTML instead of downloading it
     return f"http://{bucket}.s3-website-{region}.amazonaws.com/{key}"
 
 
@@ -437,7 +438,6 @@ def put_resume_analytics(
             "environment": env,
             "model_used": model_used,
             "timestamp": now_iso(),
-            # analytics fields
             "word_count": analytics["word_count"],
             "ats_score": analytics["ats_score"],
             "keywords": analytics["keywords"],
@@ -458,11 +458,10 @@ def main() -> int:
     deployment_table = require_env("DEPLOYMENT_TABLE")
     analytics_table = require_env("ANALYTICS_TABLE")
 
-    env = require_env("ENV")  # beta
+    env = require_env("ENV")
     commit_sha = require_env("COMMIT_SHA")
     model_id = require_env("MODEL_ID")
 
-    # Read resume (clamped)
     resume_md = clamp_text(read_text_file("resume.md"), max_chars=12000)
 
     deployment_id = str(uuid.uuid4())
@@ -478,7 +477,7 @@ def main() -> int:
             bedrock_region=bedrock_region,
             model_id=model_id,
             prompt=html_prompt,
-            max_tokens=4000,  # full resume HTML requires sufficient token budget
+            max_tokens=4000,
             temperature=0.2,
             retries=1,
             backoff_seconds=2.0,
@@ -490,7 +489,7 @@ def main() -> int:
             bedrock_region=bedrock_region,
             model_id=model_id,
             prompt=json_prompt,
-            max_tokens=350,  # keep low
+            max_tokens=350,
             temperature=0.1,
             retries=1,
             backoff_seconds=2.0,
@@ -537,7 +536,6 @@ def main() -> int:
         analytics=ats,
     )
 
-    # Print summary for Actions logs
     print(
         json.dumps(
             {
