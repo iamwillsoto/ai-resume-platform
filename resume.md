@@ -86,5 +86,5 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, multi-VPC segmentat
 
 ## EDUCATION
 
-**Western Governors University** | Apr 2026
+**Western Governors University**
 Bachelor of Science, Cloud & Network Engineering
