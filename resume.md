@@ -13,10 +13,10 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, Terraform-driven in
 
 ## SKILLS
 
-**AWS Infrastructure:** VPC, Transit Gateway, Route 53, ALB, Auto Scaling, EC2, RDS, S3, Lambda, API Gateway, DynamoDB
-**Infrastructure as Code & Automation:** Terraform, CloudFormation, GitHub Actions, Jenkins, Python, Boto3, Bash, PowerShell
-**Security & Operations:** IAM, RBAC, KMS, GuardDuty, Security Hub, AWS Config, CloudWatch, EventBridge, VPC Flow Logs
-**Containers:** Docker, Docker Swarm, ECS, Kubernetes
+**AWS Infrastructure:** VPC, Transit Gateway, Route 53, ALB, Auto Scaling, EC2, RDS, S3, Lambda, API Gateway, DynamoDB  
+**Infrastructure as Code & Automation:** Terraform, CloudFormation, GitHub Actions, Jenkins, Python, Boto3, Bash, PowerShell, Linux  
+**Security & Operations:** IAM, RBAC, KMS, GuardDuty, Security Hub, AWS Config, CloudWatch, EventBridge, VPC Flow Logs  
+**Containers:** Docker, Docker Swarm, ECS, Kubernetes  
 **AI Services:** Amazon Bedrock, Rekognition, Transcribe, Translate, Polly
 
 ---
@@ -56,7 +56,7 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, Terraform-driven in
 ## PROJECTS
 
 ### AI Resume Platform — Serverless AI Delivery Pipeline
-**Amazon Bedrock · CloudFormation · GitHub Actions · Lambda · API Gateway · DynamoDB · S3**
+**Amazon Bedrock · CloudFormation · GitHub Actions · Lambda · API Gateway · DynamoDB · S3**  
 **Live Demo:** [Resume Platform](https://ai-resume-iamwillsoto.s3.amazonaws.com/prod/index.html) | **GitHub:** [Repo](https://github.com/iamwillsoto/ai-resume-platform)
 
 - Built a serverless AI-powered resume scoring platform using Amazon Bedrock and Lambda, processing resume submissions through API Gateway and returning structured ATS evaluations.
@@ -64,7 +64,7 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, Terraform-driven in
 - Automated delivery through GitHub Actions CI/CD with review-first promotion from beta to production.
 
 ### Automated EC2 Governance — Serverless Shutdown & Audit Pipeline
-**Lambda · EventBridge · DynamoDB · API Gateway · CloudFormation · GitHub Actions**
+**Lambda · EventBridge · DynamoDB · API Gateway · CloudFormation · GitHub Actions**  
 **GitHub:** [Repo](https://github.com/iamwillsoto/lambda-ec2-shutdown)
 
 - Built a tag-governed Lambda workflow that automatically stops Dev EC2 instances nightly via EventBridge, targeting only approved non-production resources.
@@ -75,16 +75,15 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, Terraform-driven in
 
 ## CERTIFICATIONS & RECOGNITION
 
-**AWS Certified Solutions Architect – Associate** | Dec 2025
-**AWS Certified SysOps Administrator – Associate** | Jul 2025
-**AWS Certified AI Practitioner** | Jan 2026
-**CompTIA Security+** | Apr 2025
-**CompTIA Network+** | Feb 2026
+**AWS Certified Solutions Architect – Associate** | Dec 2025  
+**AWS Certified SysOps Administrator – Associate** | Jul 2025  
+**AWS Certified AI Practitioner** | Jan 2026  
+**CompTIA Security+** | Apr 2025  
+**CompTIA Network+** | Feb 2026  
 **AWS Community Builder** | 2026 – Present
 
 ---
 
 ## EDUCATION
 
-**Western Governors University**
-Bachelor of Science, Cloud & Network Engineering
+**Western Governors University** | Bachelor of Science, Cloud & Network Engineering
