@@ -13,10 +13,10 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, Terraform-driven in
 
 ## SKILLS
 
-**AWS Infrastructure:** VPC, Transit Gateway, Route 53, ALB, Auto Scaling, EC2, RDS, S3, Lambda, API Gateway, DynamoDB  
-**Infrastructure as Code & Automation:** Terraform, CloudFormation, GitHub Actions, Jenkins, Python, Boto3, Bash, PowerShell, Linux  
-**Security & Operations:** IAM, RBAC, KMS, GuardDuty, Security Hub, AWS Config, CloudWatch, EventBridge, VPC Flow Logs  
-**Containers:** Docker, Docker Swarm, ECS, Kubernetes  
+**AWS Infrastructure:** VPC, Transit Gateway, Route 53, ALB, Auto Scaling, EC2, RDS, S3, Lambda, API Gateway, DynamoDB
+**Infrastructure as Code & Automation:** Terraform, CloudFormation, GitHub Actions, Jenkins, Python, Boto3, Bash, PowerShell, Linux
+**Security & Operations:** IAM, RBAC, KMS, GuardDuty, Security Hub, AWS Config, CloudWatch, EventBridge, VPC Flow Logs
+**Containers:** Docker, Docker Swarm, ECS, Kubernetes
 **AI Services:** Amazon Bedrock, Rekognition, Transcribe, Translate, Polly
 
 ---
@@ -46,6 +46,12 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, Terraform-driven in
 - Operated enterprise AWS production environments sustaining 99.9%+ SLA adherence through CloudWatch alarm strategy, scaling policy optimization, and proactive degradation detection.
 - Diagnosed complex routing, DNS resolution, and load balancer health failures using VPC Flow Logs and CloudWatch Insights to restore service integrity.
 
+### LIFE TIME FITNESS | IT Service Desk Technician
+**Sep 2014 – Aug 2020 | Burlington, MA**
+
+- Escalation point for enterprise identity and access management across 1K+ users and 6 locations, administering Active Directory lifecycle, VPN/SSO authentication, and structured incident and change workflows in ServiceNow.
+- Resolved LAN/WAN connectivity issues including VPN, DNS, DHCP, and endpoint configuration across enterprise infrastructure.
+
 ### UNITED STATES NAVY | Boatswain's Mate
 **Jan 2010 – Mar 2014 | USS Lake Champlain (CG-57), San Diego, CA**
 
@@ -56,30 +62,22 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, Terraform-driven in
 ## PROJECTS
 
 ### AI Resume Platform — Serverless AI Delivery Pipeline
-**Amazon Bedrock · CloudFormation · GitHub Actions · Lambda · API Gateway · DynamoDB · S3**  
+**Amazon Bedrock · CloudFormation · GitHub Actions · Lambda · API Gateway · DynamoDB · S3**
 **Live Demo:** [Resume Platform](https://ai-resume-iamwillsoto.s3.amazonaws.com/prod/index.html) | **GitHub:** [Repo](https://github.com/iamwillsoto/ai-resume-platform)
 
 - Built a serverless AI-powered resume scoring platform using Amazon Bedrock and Lambda, processing resume submissions through API Gateway and returning structured ATS evaluations.
 - Provisioned all infrastructure using AWS CloudFormation, enabling repeatable, version-controlled deployments across isolated beta and production environments.
 - Automated delivery through GitHub Actions CI/CD with review-first promotion from beta to production.
 
-### Automated EC2 Governance — Serverless Shutdown & Audit Pipeline
-**Lambda · EventBridge · DynamoDB · API Gateway · CloudFormation · GitHub Actions**  
-**GitHub:** [Repo](https://github.com/iamwillsoto/lambda-ec2-shutdown)
-
-- Built a tag-governed Lambda workflow that automatically stops Dev EC2 instances nightly via EventBridge, targeting only approved non-production resources.
-- Implemented DynamoDB audit logging for every shutdown event, capturing instance ID, tags, timestamp, and request metadata for governance traceability.
-- Exposed on-demand shutdown capability through API Gateway, enabling controlled cleanup without console access.
-
 ---
 
 ## CERTIFICATIONS & RECOGNITION
 
-**AWS Certified Solutions Architect – Associate** | Dec 2025  
-**AWS Certified SysOps Administrator – Associate** | Jul 2025  
-**AWS Certified AI Practitioner** | Jan 2026  
-**CompTIA Security+** | Apr 2025  
-**CompTIA Network+** | Feb 2026  
+**AWS Certified Solutions Architect – Associate** | Dec 2025
+**AWS Certified SysOps Administrator – Associate** | Jul 2025
+**AWS Certified AI Practitioner** | Jan 2026
+**CompTIA Security+** | Apr 2025
+**CompTIA Network+** | Feb 2026
 **AWS Community Builder** | 2026 – Present
 
 ---
