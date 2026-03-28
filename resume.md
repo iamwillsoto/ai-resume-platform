@@ -1,13 +1,13 @@
 # WILL A. SOTO
 **AWS Cloud Engineer | US Navy Veteran**
 
-Providence, RI | sotowilmeralberto@gmail.com | 857-544-6474 | [linkedin.com/in/iamwillsoto](https://linkedin.com/in/iamwillsoto) | [github.com/iamwillsoto](https://github.com/iamwillsoto)
+Providence, RI | sotowilmeralberto@gmail.com | 857-544-6474 | linkedin.com/in/iamwillsoto | github.com/iamwillsoto
 
 ---
 
 ## PROFESSIONAL SUMMARY
 
-AWS Cloud Engineer specializing in zero-trust security architecture, Terraform-driven platform infrastructure, and AI-integrated cloud automation. Proven track record designing highly available, cost-governed AWS environments with a focus on IaC, compliance automation, and operational reliability. Hands-on experience delivering Bedrock-powered AI pipelines and production-grade CI/CD workflows in enterprise environments.
+AWS Cloud Engineer with deep expertise in enterprise-scale infrastructure, zero-trust security architecture, and AI-integrated cloud automation. Consistent track record of designing highly available, cost-governed AWS environments — from multi-VPC networking and Terraform-driven IaC to Bedrock-powered AI pipelines and production-grade CI/CD. Brings a security-first mindset, a bias for automation, and the operational discipline to perform in high-stakes production environments.
 
 ---
 
@@ -32,37 +32,39 @@ AWS Cloud Engineer specializing in zero-trust security architecture, Terraform-d
 ### HD SUPPLY | Cloud Infrastructure Engineer (Contract)
 **Jun 2024 – Present**
 
-- Designed multi-VPC network segmentation with Transit Gateway centralized routing to enforce deterministic east-west traffic controls, achieving workload blast radius containment across production, staging, and development environments.
-- Automated compliance evidence generation via Lambda and PowerShell, converting Security Hub and Inspector findings into structured audit artifacts — cutting manual evidence collection by 60% and accelerating audit readiness cycles.
+- Architected multi-VPC network segmentation with Transit Gateway centralized routing, enforcing deterministic east-west traffic controls and achieving full workload blast radius containment across production, staging, and development environments.
+- Automated compliance evidence generation via Lambda and PowerShell, converting Security Hub and Inspector findings into structured audit artifacts — reducing manual evidence collection by 60% and compressing audit readiness timelines.
 - Implemented zero-trust IAM architecture using scoped role hierarchies, RBAC permission boundaries, and KMS encryption standards to eliminate standing privilege and enforce least-access controls across all workload tiers.
-- Enforced infrastructure consistency using Terraform with AWS Config rule validation, enabling automated drift detection and cost-reducing remediation across environments.
-- Standardized Route 53 DNS governance with public/private hosted zone separation and failover routing policies, eliminating ad-hoc DNS sprawl and improving cross-service resolution reliability.
+- Deployed Terraform-driven infrastructure governance with AWS Config rule validation, enabling continuous drift detection and automated remediation that eliminated environment inconsistency as a recurring operational risk.
+- Standardized Route 53 DNS governance across public and private hosted zones with failover and weighted routing policies, eliminating ad-hoc DNS sprawl and improving cross-service resolution reliability at scale.
+- Established CloudWatch dashboards and alarm thresholds across production workloads, improving signal-to-noise ratio and enabling faster triage during infrastructure degradation events.
 
 ### LEVELUPINTECH | Cloud Engineer
 **Feb 2024 – Oct 2024**
 
-- Built platform-grade reusable Terraform VPC modules encapsulating subnet segmentation, route propagation controls, and standardized NAT egress — enabling consistent, repeatable infrastructure provisioning across isolated environments.
-- Provisioned multi-tier production infrastructure using Terraform Cloud across ALB, Auto Scaling Groups, and RDS with private subnet isolation and multi-AZ deployment, supporting SLA-aligned availability targets.
+- Engineered platform-grade reusable Terraform VPC modules encapsulating subnet segmentation, route propagation controls, and standardized NAT egress — enabling consistent, repeatable infrastructure provisioning that eliminated per-environment configuration drift.
+- Provisioned multi-tier production infrastructure using Terraform Cloud across ALB, Auto Scaling Groups, and RDS with private subnet isolation and multi-AZ deployment, meeting SLA-aligned availability requirements.
 - Integrated Amazon Bedrock into a serverless AI pipeline with DynamoDB-backed session persistence and throttling-aware fallback logic, delivering reliable LLM inference at scale across isolated AWS environments.
-- Hardened platform security posture by deploying GuardDuty threat detection, AWS Config compliance rules, and KMS encryption — establishing continuous compliance validation as a standing baseline.
+- Hardened platform security posture by deploying GuardDuty threat detection, AWS Config compliance rules, and KMS encryption across all compute and storage layers — making continuous compliance validation the default, not an afterthought.
+- Designed and maintained CI/CD pipelines using GitHub Actions and Jenkins, accelerating infrastructure delivery and enforcing consistent deployment standards across all environments.
 
 ### VERIZON | Cloud Support Engineer
 **Jan 2021 – Mar 2024**
 
-- Sustained 99.9%+ SLA adherence across enterprise AWS production environments through CloudWatch alarm engineering, Auto Scaling policy optimization, and proactive degradation detection ahead of customer impact.
-- Reduced mean time to resolution for infrastructure incidents by diagnosing routing faults, DNS failures, and load balancer health check breakdowns using VPC Flow Logs and CloudWatch Logs Insights.
-- Improved operational cost visibility by analyzing CloudWatch metrics and rightsizing EC2 and Auto Scaling configurations, contributing to resource efficiency across production environments.
+- Sustained 99.9%+ SLA adherence across enterprise AWS production environments through proactive CloudWatch alarm engineering, Auto Scaling policy optimization, and early degradation detection before customer impact.
+- Drove down mean time to resolution by systematically diagnosing routing faults, DNS resolution failures, and load balancer health check breakdowns using VPC Flow Logs and CloudWatch Logs Insights.
+- Identified and resolved EC2 and Auto Scaling rightsizing opportunities through CloudWatch metrics analysis, improving resource efficiency and contributing to measurable cost reduction across production environments.
 
 ### LIFE TIME FITNESS | IT Service Desk Technician
 **Sep 2014 – Aug 2020**
 
-- Escalation point for enterprise IAM across 1K+ users and 6 locations, administering Active Directory lifecycle, VPN/SSO authentication, and incident workflows in ServiceNow.
+- Primary escalation point for enterprise IAM across 1K+ users and 6 locations, administering Active Directory lifecycle, VPN/SSO authentication, and incident workflows in ServiceNow.
 - Resolved LAN/WAN issues including VPN, DNS, DHCP, and endpoint configuration across enterprise infrastructure.
 
 ### UNITED STATES NAVY | Boatswain's Mate
 **Jan 2010 – Mar 2014 | USS Lake Champlain (CG-57), San Diego, CA**
 
-- Served aboard USS Lake Champlain supporting maritime operations requiring rapid decision-making, operational discipline, and mission execution under pressure.
+- Served aboard USS Lake Champlain supporting maritime operations that demanded rapid decision-making, precision execution, and composure under pressure.
 
 ---
 
