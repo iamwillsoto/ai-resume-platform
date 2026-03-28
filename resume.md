@@ -7,7 +7,7 @@ Providence, RI | sotowilmeralberto@gmail.com | 857-544-6474 | [linkedin.com/in/i
 
 ## PROFESSIONAL SUMMARY
 
-AWS Cloud Engineer specializing in enterprise AWS platforms, Terraform-driven infrastructure, and production-grade CI/CD automation. Experienced designing and supporting secure, highly available cloud environments with a focus on scalable networking, IaC, governance, and operational reliability. Proven ability to deliver high-impact cloud solutions aligned with business goals.
+AWS Cloud Engineer specializing in enterprise-scale infrastructure, zero-trust security architecture, and AI-integrated cloud automation. Proven track record designing highly available, cost-governed AWS environments using Terraform, CI/CD pipelines, and native AWS security tooling. Hands-on experience delivering Bedrock-powered AI pipelines, platform-grade IaC modules, and compliance automation in production environments.
 
 ---
 
@@ -15,14 +15,12 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, Terraform-driven in
 
 | Category | Tools & Technologies |
 |---|---|
-| **AWS Infrastructure** | VPC, Transit Gateway, Route 53, ALB, Auto Scaling, EC2, RDS, S3, Lambda, API Gateway, DynamoDB, CloudFront, SNS, SQS, WAF, Shield, X-Ray, Elastic Beanstalk, Organizations, Trusted Advisor |
-| **IaC & Automation** | Terraform, CloudFormation, Ansible, Packer, GitHub Actions, Jenkins, CodePipeline, CodeBuild, CodeDeploy, Python, Boto3, Bash, PowerShell, Linux |
-| **Security & Operations** | IAM, RBAC, KMS, GuardDuty, Security Hub, AWS Config, CloudWatch, EventBridge, VPC Flow Logs, CloudHSM, Secrets Manager, Inspector, CloudTrail |
-| **Monitoring & Observability** | CloudWatch, Prometheus, Grafana, ELK Stack (Elasticsearch, Logstash, Kibana), Datadog, AWS X-Ray |
-| **Containers & Orchestration** | Docker, Docker Swarm, ECS, EKS, Kubernetes |
-| **AI Services** | Amazon Bedrock, Rekognition, Transcribe, Translate, Polly |
-| **Databases** | MySQL, DynamoDB, RDS, NoSQL |
-| **Collaboration** | Slack, Trello, Jira, Confluence, Microsoft Teams, Notion |
+| **AWS Infrastructure** | VPC, Transit Gateway, Route 53, ALB, Auto Scaling, EC2, RDS, S3, Lambda, API Gateway, DynamoDB |
+| **IaC & Automation** | Terraform, CloudFormation, GitHub Actions, Jenkins, Python, Boto3, Bash, PowerShell, Linux |
+| **Security & Compliance** | IAM, RBAC, KMS, GuardDuty, Security Hub, AWS Config, Inspector, CloudTrail, VPC Flow Logs |
+| **Observability** | CloudWatch, EventBridge, CloudWatch Logs Insights, VPC Flow Logs |
+| **Containers** | Docker, Docker Swarm, ECS, Kubernetes |
+| **AI & ML Infrastructure** | Amazon Bedrock, Rekognition, Transcribe, Translate, Polly |
 
 ---
 
@@ -31,35 +29,26 @@ AWS Cloud Engineer specializing in enterprise AWS platforms, Terraform-driven in
 ### HD SUPPLY | Cloud Infrastructure Engineer (Contract)
 **Jun 2024 – Present**
 
-- Designed and deployed highly available and scalable AWS infrastructure using EC2, VPC, S3, and RDS, improving application uptime by 99.9% and reducing latency by 25% across multiple production environments.
-- Automated infrastructure provisioning and configuration management using Terraform and AWS CloudFormation, decreasing deployment time by 60% and minimizing human error in production rollouts.
-- Implemented CI/CD pipelines with Jenkins, GitHub Actions, and AWS CodePipeline, resulting in a 40% faster release cycle and improved code quality through integrated testing and rollback strategies.
-- Deployed and managed containerized applications using Docker, Amazon ECS, and Kubernetes, achieving seamless scaling and reducing container orchestration issues by 30%.
-- Monitored system health and performance using AWS CloudWatch, Prometheus, and the ELK Stack, proactively identifying and resolving issues, which led to a 45% reduction in incident response time.
-- Strengthened cloud security posture by enforcing IAM policies, implementing AWS KMS, configuring security groups, and conducting monthly vulnerability assessments, reducing potential risks by 70%.
-- Collaborated with cross-functional teams via Slack, Trello, and Jira to deliver cloud solutions aligned with business objectives, contributing to the successful launch of 3 mission-critical applications in under 6 months.
+- Designed multi-VPC network segmentation using Transit Gateway with deterministic east-west traffic controls, enforcing workload blast radius containment across production, staging, and development environments and reducing cross-environment exposure risk.
+- Automated compliance evidence generation via Lambda and PowerShell, converting Security Hub and Inspector findings into structured audit artifacts — cutting manual evidence collection by 60% and accelerating audit readiness cycles.
+- Implemented zero-trust IAM architecture using scoped role hierarchies, RBAC permission boundaries, and KMS encryption standards to eliminate standing privilege and enforce least-access controls across all workload tiers.
+- Standardized Route 53 DNS governance across public and private hosted zones with failover and weighted routing policies, eliminating ad-hoc DNS sprawl and improving cross-service resolution reliability.
+- Enforced infrastructure consistency using Terraform with AWS Config rule validation, enabling automated drift detection and remediation across environments — reducing configuration variance and unplanned change risk.
 
 ### LEVELUPINTECH | Cloud Engineer
 **Feb 2024 – Oct 2024**
 
-- Designed and deployed secure AWS VPC architectures to enhance cloud network security, resource isolation, and overall performance.
-- Automated infrastructure provisioning and Jenkins deployments using Terraform, significantly reducing manual errors and improving scalability.
-- Streamlined Docker containerization and orchestration workflows, integrating Portainer CE for efficient application management and improved DevOps practices.
-- Developed and maintained CI/CD pipelines using GitHub Actions, Jenkins, and Docker, accelerating code delivery and ensuring consistent deployment standards.
-- Migrated a dynamic website to AWS S3 with CloudFront distribution, implementing Lambda functions for serverless tracking and optimizing user interaction analytics.
-- Created and executed Bash and Python (Boto3) scripts for EC2 lifecycle management, automating routine tasks and boosting system reliability.
-- Managed user access controls and enforced permission policies on Linux (Ubuntu) systems, strengthening OS-level security and reducing unauthorized access incidents.
+- Built platform-grade reusable Terraform VPC modules encapsulating subnet segmentation, controlled route propagation, and standardized NAT egress patterns — enabling consistent, repeatable infrastructure provisioning across isolated environments.
+- Provisioned multi-tier production infrastructure using Terraform Cloud across ALB, Auto Scaling Groups, and RDS with private subnet isolation and multi-AZ deployment, supporting SLA-aligned availability targets.
+- Integrated Amazon Bedrock into a serverless AI pipeline with DynamoDB-backed session persistence and throttling-aware fallback logic, delivering reliable LLM inference at scale across isolated AWS environments.
+- Hardened platform security posture by deploying GuardDuty threat detection, AWS Config compliance rules, and KMS encryption across compute and storage layers — establishing continuous compliance validation as a baseline, not a one-time audit.
 
 ### VERIZON | Cloud Support Engineer
 **Jan 2021 – Mar 2024**
 
-- Migrated over 120 on-premises workloads to AWS using EC2, S3, and AWS Database Migration Service, reducing infrastructure costs by 35% and improving system reliability.
-- Developed and maintained infrastructure as code (IaC) using Terraform and CloudFormation, standardizing deployments across environments and reducing configuration drift by 90%.
-- Implemented secure VPC architectures, including subnetting, routing, NAT gateways, and security group policies, enhancing network performance and reducing cross-region latency by 20%.
-- Orchestrated containerized applications using Docker and Amazon ECS, improving deployment speed and environment consistency for development and production pipelines.
-- Established monitoring and logging solutions with AWS CloudWatch, AWS X-Ray, and Grafana, which reduced troubleshooting time by 50% and improved system observability.
-- Enforced robust IAM policies, integrated AWS KMS for data encryption, and conducted quarterly audits, leading to 100% compliance with internal and external security standards.
-- Collaborated with development and operations teams using Confluence, Jira, and Slack, contributing to the successful launch of 5 cloud-native applications with zero critical post-release issues.
+- Sustained 99.9%+ SLA adherence across enterprise AWS production environments through proactive CloudWatch alarm engineering, Auto Scaling policy optimization, and degradation pattern detection ahead of customer impact.
+- Reduced mean time to resolution for infrastructure incidents by systematically diagnosing routing faults, DNS resolution failures, and load balancer health check breakdowns using VPC Flow Logs and CloudWatch Logs Insights.
+- Maintained operational visibility across distributed workloads by refining CloudWatch dashboards and alert thresholds, improving signal-to-noise ratio and enabling faster triage during production degradation events.
 
 ### LIFE TIME FITNESS | IT Service Desk Technician
 **Sep 2014 – Aug 2020 | Burlington, MA**
