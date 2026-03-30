@@ -25,7 +25,8 @@ AWS Cloud Engineer with experience designing secure, scalable AWS infrastructure
 - Automated infrastructure provisioning and Jenkins deployments using Terraform, significantly reducing manual errors and improving scalability.
 - Developed and maintained CI/CD pipelines using GitHub Actions, Jenkins, and Docker, accelerating code delivery and ensuring consistent deployment standards.
 - Migrated a dynamic website to AWS S3 with CloudFront distribution, implementing Lambda functions for serverless tracking and optimizing user interaction analytics.
-- Created and executed Bash and Python (Boto3) scripts for EC2 lifecycle management, automating routine tasks and boosting system reliability.
+- Created and executed Bash and Python (Boto3) scripts for EC2 lifecycle management, automating routine tasks and improving system reliability.
+- Managed user access controls and enforced permission policies on Linux (Ubuntu) systems, strengthening OS-level security and reducing unauthorized access incidents.
 
 ### VERIZON | Cloud Support Engineer
 **Jan 2021 – Mar 2024**
@@ -35,6 +36,7 @@ AWS Cloud Engineer with experience designing secure, scalable AWS infrastructure
 - Implemented secure VPC architectures, including subnetting, routing, NAT gateways, and security group policies, enhancing network performance and reducing cross-region latency by 20%.
 - Orchestrated containerized applications using Docker and Amazon ECS, improving deployment speed and environment consistency for development and production pipelines.
 - Established monitoring and logging solutions with AWS CloudWatch, AWS X-Ray, and Grafana, reducing troubleshooting time by 50% and improving system observability.
+- Enforced robust IAM policies and integrated AWS KMS for data encryption, strengthening security controls across cloud environments.
 
 ### LIFE TIME FITNESS | IT Service Desk Technician
 **Sep 2014 – Aug 2020**
