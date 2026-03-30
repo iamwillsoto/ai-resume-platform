@@ -49,8 +49,10 @@ AWS Cloud Engineer with deep expertise in enterprise-scale infrastructure, zero-
 ### LIFE TIME FITNESS | IT Service Desk Technician
 **Sep 2014 – Aug 2020**
 
-- Primary escalation point for enterprise IAM across 1K+ users and 6 locations, administering Active Directory lifecycle, VPN/SSO authentication, and incident workflows in ServiceNow.
+- Primary escalation point for enterprise IAM across 1K+ users and 6 locations, administering Active Directory lifecycle, VPN/SSO authentication in ServiceNow.
 - Resolved LAN/WAN issues including VPN, DNS, DHCP, and endpoint configuration across enterprise infrastructure.
+- Resolved identity and access issues including password resets, account lockouts, MFA challenges, and permission-related tickets, strengthening user access reliability and reinforcing core IAM support practices.
+- Supported user provisioning and deprovisioning workflows across Active Directory and related systems, maintaining access control accuracy and improving onboarding and offboarding efficiency.
 
 ### UNITED STATES NAVY | Boatswain's Mate
 **Jan 2010 – Mar 2014 | USS Lake Champlain (CG-57), San Diego, CA**
