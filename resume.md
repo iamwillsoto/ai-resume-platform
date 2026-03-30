@@ -98,6 +98,27 @@ AWS Cloud Engineer with deep expertise in enterprise-scale infrastructure, zero-
 
 ---
 
+## SELECTED AWS PROJECTS
+**Automated EC2 Governance on AWS**
+
+- Built automated governance controls for Amazon EC2 to enforce configuration consistency, reduce manual oversight, and improve operational standardization across cloud environments.
+- Used AWS services and policy-based controls to identify noncompliant instances, support remediation workflows, and strengthen infrastructure governance.
+- Improved visibility into EC2 usage and control posture through automated checks, repeatable enforcement, and cloud operations monitoring.
+
+**AI Resume Platform on AWS**
+
+- Built a review-first CI/CD platform on AWS using GitHub Actions, CloudFormation, S3, Lambda, DynamoDB, and Amazon Bedrock to generate and promote validated resume artifacts from beta to production.
+- Automated ATS analysis and artifact generation while enforcing environment isolation, traceability, and promotion control across deployment stages.
+- Improved deployment consistency and reduced manual publishing effort through structured validation, versioned artifacts, and production-aligned release flow.
+
+**Two-Tier AWS Architecture with ALB, Auto Scaling, and Private Subnet Isolation
+
+- Provisioned a two-tier AWS environment using Terraform with a custom VPC, public Application Load Balancer, private EC2 instances, Auto Scaling, and managed database services.
+- Implemented subnet isolation, controlled egress, and health-check-based traffic routing to improve resilience, availability, and operational consistency.
+- Strengthened infrastructure repeatability and deployment reliability through infrastructure as code, standardized networking, and scalable application design.
+
+--
+
 ## EDUCATION
 
 **Western Governors University** | B.S. Cloud and Network Engineering
