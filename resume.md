@@ -39,8 +39,6 @@ AWS Cloud Engineer with experience designing secure, scalable, and cost-effectiv
 - Created and executed Bash and Python (Boto3) scripts for EC2 lifecycle management, automating routine tasks and improving system reliability.
 - Managed user access controls and enforced permission policies on Linux (Ubuntu) systems, strengthening OS-level security and reducing unauthorized access incidents.
 
-That’s where it originally came from in Ebony’s resume structure too.
-
 ### LIFE TIME FITNESS | IT Service Desk Technician
 **Sep 2014 – Aug 2020**
 
