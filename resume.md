@@ -61,7 +61,7 @@ AWS Cloud Engineer with experience designing secure, scalable, and cost-effectiv
 **Security & Networking:** AWS KMS, GuardDuty, AWS Inspector, Secrets Manager, IAM, VPC Design, Routing, Network Security, Infrastructure Optimization  
 **Scripting & Systems:** Python (Boto3), Bash, Linux  
 **Databases:** MySQL, DynamoDB  
-**AI Services:** Amazon Bedrock, Rekognition, Transcribe, Polly
+**AI Services:** Amazon Bedrock, Rekognition, Transcribe, Polly, AI-Enabled Automation
 
 ## CERTIFICATIONS & RECOGNITION
 
