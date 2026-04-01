@@ -4,7 +4,7 @@ Providence, RI | sotowilmeralberto@gmail.com | 857-544-6474 | linkedin.com/in/ia
 
 ## PROFESSIONAL SUMMARY
 
-AWS Cloud Engineer with experience designing secure, scalable, and cost-effective AWS infrastructure, automating deployments with Terraform and CloudFormation, and building reliable CI/CD workflows. Strong background in cloud security, infrastructure standardization, and operational support, with a focus on delivering resilient solutions aligned with business needs.
+AWS Cloud Engineer with experience designing secure, scalable, and cost-effective AWS infrastructure, automating deployments with Terraform and CloudFormation, and building reliable CI/CD workflows. Strong background in cloud security, infrastructure standardization, and operational reliability, with a focus on delivering resilient solutions aligned with business needs.
 
 ## EXPERIENCE
 
