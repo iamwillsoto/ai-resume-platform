@@ -4,11 +4,11 @@ Providence, RI | sotowilmeralberto@gmail.com | 857-544-6474 | linkedin.com/in/ia
 
 ## PROFESSIONAL SUMMARY
 
-AWS Cloud Engineer with experience designing secure, scalable AWS infrastructure, automating deployments with Terraform and CloudFormation, and building production-aligned CI/CD workflows. Strong focus on cloud security, infrastructure standardization, and operational reliability.
+AWS Cloud Engineer with experience designing secure, scalable, and cost-effective AWS infrastructure, automating deployments with Terraform and CloudFormation, and building reliable CI/CD workflows. Strong background in cloud security, infrastructure standardization, and operational support, with a focus on delivering resilient solutions aligned with business needs.
 
 ## EXPERIENCE
 
-### HD SUPPLY | Cloud Infrastructure Engineer (Contract)
+### HD SUPPLY | Cloud Infrastructure Engineer
 **Jun 2024 – Present**
 
 - Designed and deployed highly available, scalable AWS infrastructure using EC2, VPC, S3, and RDS, improving application uptime by 99.9% and reducing latency by 25% across multiple production environments.
@@ -31,19 +31,21 @@ AWS Cloud Engineer with experience designing secure, scalable AWS infrastructure
 ### VERIZON | Cloud Support Engineer
 **Jan 2021 – Mar 2024**
 
-- Migrated over 120 on-premises workloads to AWS using EC2, S3, and AWS Database Migration Service, reducing infrastructure costs by 35% and improving system reliability.
-- Developed and maintained infrastructure as code (IaC) using Terraform and CloudFormation, standardizing deployments across environments and reducing configuration drift by 90%.
-- Implemented secure VPC architectures, including subnetting, routing, NAT gateways, and security group policies, enhancing network performance and reducing cross-region latency by 20%.
-- Orchestrated containerized applications using Docker and Amazon ECS, improving deployment speed and environment consistency for development and production pipelines.
-- Established monitoring and logging solutions with AWS CloudWatch, AWS X-Ray, and Grafana, reducing troubleshooting time by 50% and improving system observability.
-- Enforced robust IAM policies and integrated AWS KMS for data encryption, strengthening security controls across cloud environments.
+- Designed and deployed secure AWS VPC architectures to enhance cloud network security, resource isolation, and overall performance.
+- Automated infrastructure provisioning and Jenkins deployments using Terraform, significantly reducing manual errors and improving scalability.
+- Streamlined Docker containerization and orchestration workflows, integrating with Portainer CE for efficient application management and improved DevOps practices.
+- Developed and maintained CI/CD pipelines using GitHub Actions, Jenkins, and Docker, accelerating code delivery and ensuring consistent deployment standards.
+- Migrated a dynamic website to AWS S3 with CloudFront distribution, implementing Lambda functions for serverless tracking and optimizing user interaction analytics.
+- Created and executed Bash and Python (Boto3) scripts for EC2 lifecycle management, automating routine tasks and improving system reliability.
+- Managed user access controls and enforced permission policies on Linux (Ubuntu) systems, strengthening OS-level security and reducing unauthorized access incidents.
+
+That’s where it originally came from in Ebony’s resume structure too.
 
 ### LIFE TIME FITNESS | IT Service Desk Technician
 **Sep 2014 – Aug 2020**
 
 - Primary escalation point for enterprise IAM across 1K+ users and 6 locations, administering Active Directory lifecycle, VPN/SSO authentication in ServiceNow.
 - Resolved LAN/WAN issues including VPN, DNS, DHCP, and endpoint configuration across enterprise infrastructure.
-- Resolved identity and access issues including password resets, account lockouts, MFA challenges, and permission-related tickets, strengthening user access reliability and reinforcing core IAM support practices.
 
 ### UNITED STATES NAVY | Boatswain's Mate
 **Jan 2010 – Mar 2014 | USS Lake Champlain (CG-57), San Diego, CA**
@@ -54,12 +56,13 @@ AWS Cloud Engineer with experience designing secure, scalable AWS infrastructure
 
 ## SKILLS
 
-**Cloud & Infrastructure:** AWS (EC2, S3, RDS, VPC, Lambda, DynamoDB, CloudFront, Route 53, API Gateway, IAM, CloudTrail, CloudWatch, AWS Config, AWS WAF, AWS X-Ray), Microsoft Azure  
-**Infrastructure as Code:** Terraform, AWS CloudFormation, Ansible  
-**CI/CD & DevOps:** Jenkins, GitHub Actions, AWS CodePipeline, Git, Docker  
-**Monitoring & Logging:** AWS CloudWatch, Prometheus, Grafana, ELK Stack  
-**Security & Systems:** AWS KMS, GuardDuty, AWS Inspector, Secrets Manager, IAM Policies, VPC Design, Routing, Network Security, Linux Administration  
-**Scripting & Data:** Python (Boto3), Bash, MySQL, DynamoDB  
+**Cloud Platforms:** AWS (EC2, S3, RDS, VPC, Lambda, DynamoDB, CloudFront, Route 53, API Gateway, IAM, CloudTrail, AWS Config, AWS WAF, AWS X-Ray), Azure  
+**IaC:** Terraform, AWS CloudFormation, Ansible  
+**CI/CD & DevOps:** Jenkins, GitHub Actions, AWS CodePipeline, Git, Bitbucket, Docker, Amazon ECS, Kubernetes  
+**Monitoring:** CloudWatch, Prometheus, Grafana, ELK Stack, Datadog  
+**Security & Networking:** AWS KMS, GuardDuty, AWS Inspector, Secrets Manager, IAM, VPC Design, Routing, Network Security, Infrastructure Optimization  
+**Scripting & Systems:** Python (Boto3), Bash, Linux  
+**Databases:** MySQL, DynamoDB  
 **AI Services:** Amazon Bedrock, Rekognition, Transcribe, Polly
 
 ## CERTIFICATIONS & RECOGNITION
