@@ -38,8 +38,6 @@ AWS Cloud Engineer with experience designing secure, scalable, and cost-effectiv
 - Established monitoring and logging solutions with AWS CloudWatch, AWS X-Ray, and Grafana, reducing troubleshooting time by 50% and improving system observability.
 - Enforced robust IAM policies and integrated AWS KMS for data encryption, strengthening security controls across cloud environments.
 
-Once that is fixed, it reads much stronger.
-
 ### LIFE TIME FITNESS | IT Service Desk Technician
 **Sep 2014 – Aug 2020**
 
