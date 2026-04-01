@@ -17,6 +17,7 @@ AWS Cloud Engineer with experience designing secure, scalable, and cost-effectiv
 - Deployed and managed containerized applications using Docker, Amazon ECS, and Kubernetes, achieving seamless scaling and reducing container orchestration issues by 30%.
 - Monitored system health and performance using AWS CloudWatch, Prometheus, and the ELK Stack, proactively identifying and resolving issues, leading to a 45% reduction in incident response time.
 - Strengthened cloud security posture by enforcing IAM policies, implementing AWS KMS, configuring security groups, and conducting monthly vulnerability assessments, reducing potential risks by 70%.
+- Drove cross-functional delivery of cloud solutions aligned with business priorities, contributing to the launch of 3 mission-critical applications in under 6 months.
 
 ### LEVELUPINTECH | Cloud Engineer
 **Feb 2024 – Oct 2024**
