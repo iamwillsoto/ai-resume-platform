@@ -1,10 +1,10 @@
 # WILL A. SOTO
-**AWS Cloud Engineer | US Navy Veteran**  
-Providence, RI | sotowilmeralberto@gmail.com | 857-544-6474 | linkedin.com/in/iamwillsoto | github.com/iamwillsoto
+**AWS Cloud Engineer · AWS Community Builder (2026) · US Navy Veteran**
+Providence, RI · 857-544-6474 · sotowilmeralberto@gmail.com · linkedin.com/in/iamwillsoto · github.com/iamwillsoto · willsoto.tech
 
 ## PROFESSIONAL SUMMARY
 
-AWS Cloud Engineer with experience designing secure, scalable, and cost-effective AWS infrastructure, automating deployments with Terraform and CloudFormation, and building reliable CI/CD workflows. Strong background in cloud security, infrastructure standardization, and operational reliability, with a focus on delivering resilient solutions aligned with business needs.
+AWS Cloud Engineer with 5+ years of experience building secure, scalable AWS infrastructure across multi-VPC environments. Specialize in Terraform IaC, CI/CD automation, cloud security, and zero-trust IAM governance. Consistent track record delivering production-grade infrastructure that is reliable, repeatable, and built to scale.
 
 ## EXPERIENCE
 
@@ -14,7 +14,7 @@ AWS Cloud Engineer with experience designing secure, scalable, and cost-effectiv
 - Architected highly available AWS infrastructure (EC2, VPC, S3, RDS) across 3 production environments, sustaining a 99.9% uptime SLA and cutting cross-region latency by 25%.
 - Automated infrastructure provisioning using Terraform and CloudFormation, eliminating manual configuration steps and reducing deployment cycle time by 60%.
 - Built CI/CD pipelines with Jenkins, GitHub Actions, and AWS CodePipeline, integrating automated testing and rollback gates to accelerate release cycles by 40%.
-- Deployed containerized workloads on Amazon ECS and Docker, enforcing consistent orchestration practices and cutting failed deployment incidents by 30%.
+- Deployed containerized workloads on Amazon ECS and Docker, improving release consistency and cutting failed deployment incidents by 30%.
 - Monitored system health and performance using CloudWatch, Prometheus, and ELK Stack, proactively identifying and resolving issues to cut incident response time by 45%.
 - Strengthened cloud security posture by enforcing IAM least-privilege policies, implementing AWS KMS encryption, and remediating 40+ misconfigured resources across production environments.
 - Coordinated cross-functional delivery across engineering, security, and product teams, launching 3 mission-critical applications in under 6 months.
@@ -22,12 +22,11 @@ AWS Cloud Engineer with experience designing secure, scalable, and cost-effectiv
 ### LEVELUPINTECH | Cloud Engineer
 **Feb 2024 – Oct 2024**
 
-- Designed multi-tier AWS VPC architectures with public/private subnets, NACLs, and security group segmentation, reducing blast radius and improving resource isolation across multiple environments.
-- Automated infrastructure provisioning using Terraform and CloudFormation, eliminating manual configuration steps and reducing deployment cycle time by 60%.
-- Built CI/CD pipelines with Jenkins, GitHub Actions, and AWS CodePipeline, integrating automated testing and rollback gates to accelerate release cycles by 40%.
-- Deployed containerized workloads on Amazon ECS and Docker, enforcing consistent orchestration practices and cutting failed deployment incidents by 30%.
+- Designed multi-tier AWS VPC architectures with public/private subnets, NACLs, route tables, and security group segmentation to strengthen isolation across lab and project environments.
+- Automated repeatable AWS infrastructure builds using Terraform and CloudFormation, reducing manual provisioning steps and improving deployment consistency.
+- Built CI/CD workflows with GitHub Actions, Jenkins, and Docker to support repeatable application deployments across development environments.
 - Developed Python (Boto3) and Bash scripts for EC2 lifecycle automation — scheduling, tagging, and snapshot management — recovering ~10 hours/week of manual operational overhead.
-- Managed user access controls and enforced permission policies on Linux (Ubuntu) systems, strengthening OS-level security and reducing unauthorized access incidents.
+- Managed Linux user access and permission policies on Ubuntu systems, strengthening OS-level security and reducing unauthorized access exposure.
 
 ### VERIZON | Cloud Support Engineer
 **Jan 2021 – Mar 2024**
@@ -48,9 +47,8 @@ AWS Cloud Engineer with experience designing secure, scalable, and cost-effectiv
 ### UNITED STATES NAVY | Boatswain's Mate
 **Jan 2010 – Mar 2014 | USS Lake Champlain (CG-57), San Diego, CA**
 
-- Executed mission-critical operations under strict safety, compliance, and readiness standards.
-- Maintained operational discipline in high-risk environments requiring procedural accuracy and rapid decision-making.
-- Coordinated across engineering, navigation, and command teams to ensure successful mission execution.
+- Executed mission-critical shipboard operations under strict safety, compliance, and readiness standards in a high-tempo maritime environment.
+- Coordinated with engineering, navigation, and command teams to support mission execution under direct chain-of-command accountability.
 
 ## SKILLS
 
