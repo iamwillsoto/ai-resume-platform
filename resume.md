@@ -27,7 +27,6 @@ AWS Cloud Engineer with 5+ years of experience building secure, scalable AWS inf
 - Built CI/CD workflows with GitHub Actions, Jenkins, and Docker to support repeatable application deployments and reduce environment drift.
 - Developed Python (Boto3) and Bash scripts for EC2 lifecycle automation — scheduling, tagging, and snapshot management — recovering ~10 hours/week of manual operational overhead.
 - Implemented AWS monitoring and security controls using CloudWatch, IAM, and security groups, improving visibility and reinforcing least-privilege access across development environments.
-- Managed Linux user access and permission policies on Ubuntu systems, strengthening OS-level security and reducing unauthorized access exposure.
 
 ### VERIZON | Cloud Support Engineer
 **Jan 2021 – Mar 2024 | Remote**
