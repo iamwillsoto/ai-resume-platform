@@ -31,9 +31,9 @@ AWS Cloud Engineer with 5+ years of experience building secure, scalable AWS inf
 ### VERIZON | Cloud Support Engineer
 **Jan 2021 – Mar 2024 | Remote**
 
-- Led migration of 120+ on-premises workloads to AWS (EC2, S3, DMS), reducing infrastructure costs by 35% and eliminating hardware single points of failure.
+- Supported migration of on-premises workloads to AWS using EC2, S3, and AWS DMS, helping reduce hardware dependency and improve infrastructure scalability.
 - Built monitoring and alerting across CloudWatch, X-Ray, and Grafana, cutting average troubleshooting time by 50% and improving incident visibility for SRE teams.
-- Developed IaC using Terraform and CloudFormation across 15+ environments, reducing configuration drift by 90% and enabling consistent, repeatable rollouts.
+- Developed reusable Terraform and CloudFormation templates across multiple environments, improving provisioning consistency and reducing configuration drift.
 - Designed secure VPC architectures with custom subnetting, NAT gateways, and security group policies, cutting cross-region latency by 20%.
 - Deployed containerized workloads on Docker and Amazon ECS, cutting deployment time and eliminating pipeline inconsistencies between dev and production.
 - Enforced IAM least-privilege and AWS KMS encryption standards across all managed environments, supporting audit readiness and compliance posture.
