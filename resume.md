@@ -52,8 +52,6 @@ AWS Cloud Engineer designing, automating, and supporting secure AWS infrastructu
 
 - Honorably served aboard guided missile cruiser USS Lake Champlain (CG-57) executing deck operations, navigation watch, and underway replenishment evolutions across forward-deployed maritime missions, operating under strict safety, readiness, and chain-of-command accountability standards.
 
----
-
 ## SKILLS
 
 **AWS:** EC2, S3, RDS, VPC, Lambda, DynamoDB, CloudFront, Route 53, API Gateway, IAM, CloudTrail, Config, WAF, X-Ray, Bedrock
