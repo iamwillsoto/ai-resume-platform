@@ -10,11 +10,11 @@ AWS Cloud Engineer with hands-on experience designing, automating, and supportin
 ### HD SUPPLY | Cloud Infrastructure Engineer (Contract)
 **Jun 2024 – Present**
 
-- Architected segmented multi-VPC AWS environment with Transit Gateway centralized routing, enforcing deterministic east-west traffic control and isolating production workloads to reduce cross-environment risk.
+- Architected segmented multi-VPC AWS environment with Transit Gateway centralized routing, enforcing deterministic east-west traffic control and isolating production workloads to reduce cross-environment risk and contain blast radius during incident response.
 - Automated compliance evidence generation using AWS Lambda and PowerShell, converting Security Hub and Inspector findings into structured audit artifacts and reducing manual evidence collection by 60%.
 - Built CI/CD pipelines on GitHub Actions and AWS CodePipeline with automated testing and rollback gates, accelerating release cycles by 40% and reducing failed deployment incidents across production environments.
 - Implemented enterprise security baselines using KMS encryption, scoped IAM role hierarchies, and RBAC boundary controls to minimize standing privilege and reduce infrastructure blast radius.
-- Established Terraform-driven infrastructure convergence with AWS Config rule validation to detect and remediate configuration drift across beta and production environments.
+- Established Terraform-driven infrastructure convergence with AWS Config rule validation to detect and remediate configuration drift across beta and production environments, sustaining policy-compliant state through automated reconciliation.
 
 ---
 
@@ -23,16 +23,16 @@ AWS Cloud Engineer with hands-on experience designing, automating, and supportin
 
 - Architected secure multi-tier AWS infrastructure using Terraform Cloud across ALB, Auto Scaling, and RDS with private subnet isolation and repeatable IaC convergence across multiple Availability Zones.
 - Developed reusable VPC modules with structured subnet segmentation, route table propagation control, and standardized NAT egress patterns to enforce predictable traffic behavior.
-- Engineered Python and Boto3 automation for EC2 lifecycle operations — scheduling, tagging, and snapshot governance — recovering 10+ engineering hours weekly across the operations team.
-- Integrated managed AI capabilities into cloud infrastructure by provisioning Amazon Bedrock pipelines with throttling-aware fallback logic and DynamoDB persistence across isolated environments.
+- Engineered Python and Boto3 automation for EC2 lifecycle operations, including scheduling, tagging, and snapshot governance, recovering 10+ engineering hours weekly across the operations team.
+- Integrated managed AI capabilities into cloud infrastructure by provisioning Amazon Bedrock pipelines with throttling-aware fallback logic, cross-region failover handling, and DynamoDB persistence across isolated environments.
 
 ---
 
 ### VERIZON | Cloud Support Engineer
 **Jan 2021 – Mar 2024**
 
-- Operated enterprise AWS production environments sustaining 99.9%+ SLA adherence through CloudWatch alarm strategy, scaling policy optimization, and proactive degradation detection.
-- Reduced MTTR by 25% through log correlation, metric threshold tuning, IAM policy evaluation, and structured incident response workflows.
+- Operated enterprise AWS production environments sustaining 99.9%+ SLA adherence through CloudWatch alarm strategy, scaling policy optimization, and proactive degradation detection across SRE-supported workloads.
+- Reduced MTTR by 25% through log correlation, metric threshold tuning, IAM policy evaluation, and structured incident response workflows aligned to enterprise change management standards.
 - Supported on-premises to AWS migration using EC2, S3, and Database Migration Service (DMS), reducing hardware dependency and enabling elastic scalability across SRE-supported workloads.
 - Diagnosed complex routing, DNS resolution, and load balancer health failures using VPC Flow Logs and CloudWatch Insights to restore service integrity.
 
@@ -51,6 +51,8 @@ AWS Cloud Engineer with hands-on experience designing, automating, and supportin
 
 - Served aboard the guided missile cruiser USS Lake Champlain (CG-57) supporting maritime operations requiring rapid decision-making, operational discipline, and mission execution in high-pressure environments.
 
+---
+
 ## SKILLS
 
 **AWS:** EC2, S3, RDS, VPC, Lambda, DynamoDB, CloudFront, Route 53, API Gateway, IAM, CloudTrail, Config, WAF, X-Ray, Bedrock
@@ -62,7 +64,7 @@ AWS Cloud Engineer with hands-on experience designing, automating, and supportin
 **Scripting & Systems:** Python (Boto3), Bash, Linux
 **AI Services:** Amazon Bedrock, Rekognition, Transcribe, Polly, AI-Enabled Automation
 
-## CERTIFICATIONS & RECOGNITION
+### CERTIFICATIONS & RECOGNITION
 
 - **AWS Certified Solutions Architect – Associate** | Dec 2025
 - **AWS Certified SysOps Administrator – Associate** | Jul 2025
@@ -70,7 +72,6 @@ AWS Cloud Engineer with hands-on experience designing, automating, and supportin
 - **CompTIA Security+** | Apr 2025
 - **CompTIA Network+** | Feb 2026
 - **AWS Community Builder – Cloud Operations** | 2026 – Present
-  - Selected by AWS for technical contributions in Cloud Operations; participate in pre-release product feedback cycles and contribute community technical content on AWS governance and automation patterns.
 
 ## EDUCATION
 
