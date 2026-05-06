@@ -4,7 +4,7 @@ Providence, RI · 857-544-6474 · sotowilmeralberto@gmail.com · linkedin.com/in
 
 ## PROFESSIONAL SUMMARY
 
-AWS Cloud Engineer with hands-on experience designing, automating, and supporting secure AWS infrastructure across VPC, compute, storage, IAM, monitoring, and CI/CD environments. Skilled in Terraform, CloudFormation, cloud security controls, and operational automation, with a background in disciplined infrastructure support and production-oriented troubleshooting.
+AWS Cloud Engineer designing, automating, and supporting secure AWS infrastructure, Terraform-driven governance, and CI/CD-integrated controls across production environments. Reduces operational risk and accelerates delivery through network segmentation, drift remediation, and structured observability.
 ## EXPERIENCE
 
 ### HD SUPPLY | Cloud Infrastructure Engineer (Contract)
