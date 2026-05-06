@@ -65,6 +65,8 @@ AWS Cloud Engineer with hands-on experience designing, automating, and supportin
 **Scripting & Systems:** Python (Boto3), Bash, Linux
 **AI Services:** Amazon Bedrock, Rekognition, Transcribe, Polly, AI-Enabled Automation
 
+---
+
 ### CERTIFICATIONS & RECOGNITION
 
 - **AWS Certified Solutions Architect – Associate** | Dec 2025
@@ -73,6 +75,8 @@ AWS Cloud Engineer with hands-on experience designing, automating, and supportin
 - **CompTIA Security+** | Apr 2025
 - **CompTIA Network+** | Feb 2026
 - **AWS Community Builder – Cloud Operations** | 2026 – Present
+
+---
 
 ## EDUCATION
 
