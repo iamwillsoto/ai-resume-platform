@@ -50,7 +50,7 @@ AWS Cloud Engineer with hands-on experience designing, automating, and supportin
 ### US NAVY | Boatswain's Mate
 **Jan 2010 – Mar 2014 | USS Lake Champlain, San Diego, CA**
 
-- Served aboard the guided missile cruiser USS Lake Champlain (CG-57) supporting maritime operations requiring rapid decision-making, operational discipline, and mission execution in high-pressure environments.
+- Honorably served aboard guided missile cruiser USS Lake Champlain (CG-57) executing deck operations, navigation watch, and underway replenishment evolutions across forward-deployed maritime missions, operating under strict safety, readiness, and chain-of-command accountability standards.
 
 ---
 
