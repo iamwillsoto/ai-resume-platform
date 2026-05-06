@@ -74,8 +74,6 @@ AWS Cloud Engineer designing, automating, and supporting secure AWS infrastructu
 - **CompTIA Network+** | Feb 2026
 - **AWS Community Builder – Cloud Operations** | 2026 – Present
 
----
-
 ## EDUCATION
 
 **Western Governors University** | B.S. Cloud and Network Engineering | Expected 2026
