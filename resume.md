@@ -70,6 +70,7 @@ AWS Cloud Engineer with hands-on experience designing, automating, and supportin
 - **CompTIA Security+** | Apr 2025
 - **CompTIA Network+** | Feb 2026
 - **AWS Community Builder – Cloud Operations** | 2026 – Present
+  - Selected by AWS for technical contributions in Cloud Operations; participate in pre-release product feedback cycles and contribute community technical content on AWS governance and automation patterns.
 
 ## EDUCATION
 
