@@ -8,46 +8,48 @@ AWS Cloud Engineer with hands-on experience designing, automating, and supportin
 ## EXPERIENCE
 
 ### HD SUPPLY | Cloud Infrastructure Engineer (Contract)
-**Jun 2024 – Present | Remote**
+**Jun 2024 – Present**
 
-- Architected highly available AWS infrastructure (EC2, VPC, S3, RDS) across 3 production environments, sustaining a 99.9% uptime SLA and cutting cross-region latency by 25%.
-- Automated infrastructure provisioning using Terraform and CloudFormation, eliminating manual configuration steps and reducing deployment cycle time by 60%.
-- Built CI/CD pipelines with Jenkins, GitHub Actions, and AWS CodePipeline, integrating automated testing and rollback gates to accelerate release cycles by 40%.
-- Deployed containerized workloads on Amazon ECS and Docker, improving release consistency and cutting failed deployment incidents by 30%.
-- Monitored system health and performance using CloudWatch, Prometheus, and ELK Stack, proactively identifying and resolving issues to cut incident response time by 45%.
-- Strengthened cloud security posture by enforcing IAM least-privilege policies, implementing AWS KMS encryption, and remediating 40+ misconfigured resources across production environments.
-- Coordinated cross-functional delivery across engineering, security, and product teams, launching 3 mission-critical applications in under 6 months.
+- Architected segmented multi-VPC AWS environment with Transit Gateway centralized routing, enforcing deterministic east-west traffic control and isolating production workloads to reduce cross-environment risk.
+- Automated compliance evidence generation using AWS Lambda and PowerShell, converting Security Hub and Inspector findings into structured audit artifacts and reducing manual evidence collection by 60%.
+- Built CI/CD pipelines on GitHub Actions and AWS CodePipeline with automated testing and rollback gates, accelerating release cycles by 40% and reducing failed deployment incidents across production environments.
+- Implemented enterprise security baselines using KMS encryption, scoped IAM role hierarchies, and RBAC boundary controls to minimize standing privilege and reduce infrastructure blast radius.
+- Established Terraform-driven infrastructure convergence with AWS Config rule validation to detect and remediate configuration drift across beta and production environments.
+
+---
 
 ### LEVELUPINTECH | Cloud Engineer
-**Feb 2024 – Oct 2024 | Remote**
+**Feb 2024 – Oct 2024**
 
-- Designed multi-tier AWS VPC architectures with public/private subnets, NACLs, route tables, and security group segmentation to strengthen isolation across development environments.
-- Automated repeatable AWS infrastructure builds using Terraform and CloudFormation, reducing manual provisioning steps and improving deployment consistency.
-- Built CI/CD workflows with GitHub Actions, Jenkins, and Docker to support repeatable application deployments and reduce environment drift.
-- Developed Python (Boto3) and Bash scripts for EC2 lifecycle automation — scheduling, tagging, and snapshot management — recovering ~10 hours/week of manual operational overhead.
-- Implemented AWS monitoring and security controls using CloudWatch, IAM, and security groups, improving visibility and reinforcing least-privilege access across development environments.
+- Architected secure multi-tier AWS infrastructure using Terraform Cloud across ALB, Auto Scaling, and RDS with private subnet isolation and repeatable IaC convergence across multiple Availability Zones.
+- Developed reusable VPC modules with structured subnet segmentation, route table propagation control, and standardized NAT egress patterns to enforce predictable traffic behavior.
+- Engineered Python and Boto3 automation for EC2 lifecycle operations — scheduling, tagging, and snapshot governance — recovering 10+ engineering hours weekly across the operations team.
+- Integrated managed AI capabilities into cloud infrastructure by provisioning Amazon Bedrock pipelines with throttling-aware fallback logic and DynamoDB persistence across isolated environments.
+
+---
 
 ### VERIZON | Cloud Support Engineer
-**Jan 2021 – Mar 2024 | Remote**
+**Jan 2021 – Mar 2024**
 
-- Supported migration of on-premises workloads to AWS using EC2, S3, and AWS DMS, helping reduce hardware dependency and improve infrastructure scalability.
-- Built monitoring and alerting across CloudWatch, X-Ray, and Grafana, cutting average troubleshooting time by 50% and improving incident visibility for SRE teams.
-- Developed reusable Terraform and CloudFormation templates across multiple environments, improving provisioning consistency and reducing configuration drift.
-- Designed secure VPC architectures with custom subnetting, NAT gateways, and security group policies, cutting cross-region latency by 20%.
-- Deployed containerized workloads on Docker and Amazon ECS, cutting deployment time and eliminating pipeline inconsistencies between dev and production.
-- Enforced IAM least-privilege and AWS KMS encryption standards across all managed environments, supporting audit readiness and compliance posture.
+- Operated enterprise AWS production environments sustaining 99.9%+ SLA adherence through CloudWatch alarm strategy, scaling policy optimization, and proactive degradation detection.
+- Reduced MTTR by 25% through log correlation, metric threshold tuning, IAM policy evaluation, and structured incident response workflows.
+- Supported on-premises to AWS migration using EC2, S3, and Database Migration Service (DMS), reducing hardware dependency and enabling elastic scalability across SRE-supported workloads.
+- Diagnosed complex routing, DNS resolution, and load balancer health failures using VPC Flow Logs and CloudWatch Insights to restore service integrity.
+
+---
 
 ### LIFE TIME FITNESS | IT Service Desk Technician
 **Sep 2014 – Aug 2020 | Burlington, MA**
 
-- Administered enterprise IAM for 1,000+ users across 6 locations via Active Directory and ServiceNow, maintaining SSO and VPN authentication with zero SLA breaches.
-- Resolved LAN/WAN incidents including DNS, DHCP, VPN, and endpoint failures, sustaining infrastructure reliability across a distributed enterprise environment.
+- Escalation point for enterprise identity and access management across 1K+ users and 6 locations, administering Active Directory lifecycle, VPN/SSO authentication, and structured incident and change workflows in ServiceNow.
+- Resolved LAN/WAN connectivity issues including VPN, DNS, DHCP, and endpoint configuration across enterprise infrastructure.
 
-### UNITED STATES NAVY | Boatswain's Mate
-**Jan 2010 – Mar 2014 | USS Lake Champlain (CG-57), San Diego, CA**
+---
 
-- Executed mission-critical shipboard operations under strict safety, compliance, and readiness standards in a high-tempo maritime environment.
-- Coordinated with engineering, navigation, and command teams to support mission execution under direct chain-of-command accountability.
+### US NAVY | Boatswain's Mate
+**Jan 2010 – Mar 2014 | USS Lake Champlain, San Diego, CA**
+
+- Served aboard the guided missile cruiser USS Lake Champlain (CG-57) supporting maritime operations requiring rapid decision-making, operational discipline, and mission execution in high-pressure environments.
 
 ## SKILLS
 
