@@ -15,6 +15,7 @@ AWS Cloud Engineer with hands-on experience designing, automating, and supportin
 - Built CI/CD pipelines on GitHub Actions and AWS CodePipeline with automated testing and rollback gates, accelerating release cycles by 40% and reducing failed deployment incidents across production environments.
 - Implemented enterprise security baselines using KMS encryption, scoped IAM role hierarchies, and RBAC boundary controls to minimize standing privilege and reduce infrastructure blast radius.
 - Established Terraform-driven infrastructure convergence with AWS Config rule validation to detect and remediate configuration drift across beta and production environments, sustaining policy-compliant state through automated reconciliation.
+- Engineered production observability across CloudWatch, Prometheus, and ELK Stack with structured alerting and proactive degradation detection, reducing incident response time by 45% across mission-critical workloads.
 
 ---
 
